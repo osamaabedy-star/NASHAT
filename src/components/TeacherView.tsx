@@ -4,22 +4,18 @@ import {
   getTeacherSessions,
   getActivityBadgeColor,
   WEEKS_LIST,
-  SCHOOL_INFO,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
+import { OfficialDocumentHeader } from './OfficialDocumentHeader';
+import { OfficialSignatures } from './OfficialSignatures';
+import { ScoreBadge } from './ScoreBadge';
+import { NotesCell } from './NotesCell';
 import {
   User,
   Search,
-  BookOpen,
-  School,
-  Calendar,
-  Award,
   Printer,
-  Clock,
-  SlidersHorizontal,
   Download,
   Loader2,
-  Sparkles,
 } from 'lucide-react';
 
 interface TeacherViewProps {
@@ -58,11 +54,6 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
     return Array.from(new Set(allSessions.map((s) => s.gradeClass)));
   }, [allSessions]);
 
-  // Distinct activities taught by this teacher
-  const distinctActivities = useMemo(() => {
-    return Array.from(new Set(allSessions.map((s) => s.activity)));
-  }, [allSessions]);
-
   // Weeks when the teacher has sessions
   const activeWeeks = useMemo(() => {
     return new Set(allSessions.map((s) => s.week));
@@ -90,218 +81,137 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Search & Teacher Selector Bar */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs no-print">
-        <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
-          <div className="flex-1">
-            <label
-              htmlFor="teacher-select"
-              className="block text-xs font-bold text-slate-600 mb-1.5"
-            >
-              اختر المعلم لعرض جدول حصص نشاطه المخصص:
-            </label>
-            <div className="relative">
-              <select
-                id="teacher-select"
-                value={selectedTeacher}
-                onChange={(e) => {
-                  setSelectedTeacher(e.target.value);
-                  setSelectedWeekFilter('all');
-                }}
-                className="w-full bg-slate-50 border border-slate-300 hover:border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-xl px-4 py-2.5 text-slate-800 font-bold text-base transition-all appearance-none cursor-pointer"
-              >
-                {ALL_TEACHERS.map((teacher) => (
-                  <option key={teacher} value={teacher}>
-                    الأستاذ / {teacher}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                <User className="w-5 h-5" />
-              </div>
-            </div>
-          </div>
-
-          {/* Teacher Quick Filter Search */}
-          <div className="w-full md:w-72">
-            <label
-              htmlFor="search-teacher"
-              className="block text-xs font-bold text-slate-600 mb-1.5"
-            >
-              بحث سريع عن معلم:
-            </label>
-            <div className="relative">
-              <input
-                id="search-teacher"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="اكتب اسم المعلم..."
-                className="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 transition-all pr-10"
-              />
-              <Search className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Teacher Tags/Chips */}
-        <div className="mt-4 pt-4 border-t border-slate-100">
-          <div className="text-xs font-semibold text-slate-500 mb-2">
-            المعلمون المتاحون ({filteredTeachers.length}):
-          </div>
-          <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
-            {filteredTeachers.map((teacher) => {
-              const isSelected = teacher === selectedTeacher;
-              return (
-                <button
-                  key={teacher}
-                  id={`chip-teacher-${teacher}`}
-                  onClick={() => {
-                    setSelectedTeacher(teacher);
+      {/* Teacher Selection & Action Bar */}
+      <div className="bg-white rounded-xl p-4 border border-slate-300 shadow-xs no-print">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          {/* Select dropdown & search */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+            <div className="flex-1 min-w-[240px]">
+              <label htmlFor="teacher-select" className="block text-xs font-bold text-slate-700 mb-1">
+                اختر المعلم:
+              </label>
+              <div className="relative">
+                <select
+                  id="teacher-select"
+                  value={selectedTeacher}
+                  onChange={(e) => {
+                    setSelectedTeacher(e.target.value);
                     setSelectedWeekFilter('all');
                   }}
-                  className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-emerald-600 text-white shadow-xs'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                  }`}
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-slate-800 rounded-lg px-3 py-2 text-slate-900 font-bold text-sm transition-all appearance-none cursor-pointer pr-3 pl-9"
                 >
-                  {teacher}
-                </button>
-              );
-            })}
+                  {ALL_TEACHERS.map((teacher) => (
+                    <option key={teacher} value={teacher}>
+                      الأستاذ / {teacher}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                  <User className="w-4 h-4" />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full sm:w-64">
+              <label htmlFor="search-teacher" className="block text-xs font-bold text-slate-700 mb-1">
+                بحث بالاسم:
+              </label>
+              <div className="relative">
+                <input
+                  id="search-teacher"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="ابحث عن معلم..."
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 transition-all pr-8"
+                />
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2" />
+              </div>
+            </div>
+          </div>
+
+          {/* Clean Action Buttons */}
+          <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200">
+            <button
+              id="btn-save-teacher-image"
+              onClick={handleSaveAsImage}
+              disabled={isExporting}
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
+            >
+              {isExporting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>جاري الحفظ...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>تصدير كصورة (PNG)</span>
+                </>
+              )}
+            </button>
+
+            <button
+              id="btn-print-teacher"
+              onClick={handlePrint}
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5 text-slate-600" />
+              <span>طباعة الجدول</span>
+            </button>
           </div>
         </div>
+
+        {/* Quick Filter Search Results (if searching) */}
+        {searchQuery.trim() !== '' && (
+          <div className="mt-3 pt-3 border-t border-slate-200 flex flex-wrap gap-1">
+            {filteredTeachers.map((teacher) => (
+              <button
+                key={teacher}
+                onClick={() => {
+                  setSelectedTeacher(teacher);
+                  setSelectedWeekFilter('all');
+                  setSearchQuery('');
+                }}
+                className="px-2.5 py-1 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md cursor-pointer"
+              >
+                {teacher}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Action Buttons: Save as Image / Print */}
-      <div className="flex flex-wrap items-center justify-between gap-3 no-print bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-        <div className="text-xs text-slate-600 font-bold">
-          يمكنك حفظ هذا الجدول كصورة عالية الدقة (PNG) لمشاركتها عبر واتساب أو طباعتها مباشرة:
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            id="btn-save-teacher-image"
-            onClick={handleSaveAsImage}
-            disabled={isExporting}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold shadow-xs transition-all cursor-pointer disabled:opacity-50"
-          >
-            {isExporting ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>جاري إنشاء الصورة...</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4" />
-                <span>حفظ كصورة (PNG)</span>
-              </>
-            )}
-          </button>
-
-          <button
-            id="btn-print-teacher"
-            onClick={handlePrint}
-            className="flex items-center gap-2 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-colors cursor-pointer"
-          >
-            <Printer className="w-4 h-4" />
-            <span>طباعة</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Exportable & Printable Schedule Card */}
+      {/* Official Table Document Card */}
       <div
         id="teacher-export-card"
-        className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs relative overflow-hidden"
+        className="bg-white rounded-xl border border-slate-400 p-6 sm:p-8 shadow-xs relative print:shadow-none print:border-none print:p-0"
       >
-        {/* Official Header for Image Export & Print */}
-        <div className="pb-5 mb-5 border-b-2 border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-xs shrink-0">
-              <Sparkles className="w-6 h-6" />
+        {/* Ministerial Header */}
+        <OfficialDocumentHeader
+          title={`جدول حصص النشاط الطلابي — الأستاذ / ${selectedTeacher}`}
+          metadata={
+            <div className="inline-flex items-center gap-4 text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-md border border-slate-200">
+              <span>إجمالي الحصص: <b className="text-slate-900">{allSessions.length}</b> حصة</span>
+              <span>•</span>
+              <span>الفصول المسندة: <b className="text-slate-900">{distinctClasses.join('، ')}</b></span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md">
-                  {SCHOOL_INFO.name}
-                </span>
-                <span className="text-xs font-semibold text-slate-500">
-                  {SCHOOL_INFO.term} ({SCHOOL_INFO.year})
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
-                جدول حصص النشاط الطلابي — الأستاذ / {selectedTeacher}
-              </h2>
-            </div>
-          </div>
-          <div className="text-left hidden sm:block">
-            <div className="text-xs text-slate-400 font-bold">وزارة التعليم</div>
-            <div className="text-xs text-slate-500 font-semibold">المملكة العربية السعودية</div>
-          </div>
-        </div>
+          }
+        />
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-          <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200/70">
-            <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-1">
-              <Calendar className="w-4 h-4 text-emerald-600" />
-              <span>إجمالي الحصص</span>
-            </div>
-            <div className="text-2xl font-black text-slate-900">
-              {allSessions.length} <span className="text-xs font-normal text-slate-500">حصة</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200/70">
-            <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-1">
-              <School className="w-4 h-4 text-blue-600" />
-              <span>الفصول المسندة</span>
-            </div>
-            <div className="text-2xl font-black text-slate-900">
-              {distinctClasses.length} <span className="text-xs font-normal text-slate-500">فصلاً</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200/70">
-            <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-1">
-              <BookOpen className="w-4 h-4 text-amber-600" />
-              <span>الأنشطة المنفذة</span>
-            </div>
-            <div className="text-2xl font-black text-slate-900">
-              {distinctActivities.length} <span className="text-xs font-normal text-slate-500">برنامجاً</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200/70">
-            <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-1">
-              <Award className="w-4 h-4 text-purple-600" />
-              <span>الأسابيع النشطة</span>
-            </div>
-            <div className="text-2xl font-black text-slate-900">
-              {activeWeeks.size} / {WEEKS_LIST.length}{' '}
-              <span className="text-xs font-normal text-slate-500">أسبوعاً</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Filter by Week bar (hidden from image export) */}
-        <div className="no-image-export flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-100 no-print">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
-            <SlidersHorizontal className="w-4 h-4 text-slate-400" />
-            <span>تصفية العرض حسب الأسبوع:</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
+        {/* Week Filter for on-screen viewing */}
+        <div className="no-image-export flex items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-200 no-print">
+          <span className="text-xs font-bold text-slate-600">تصفية العرض حسب الأسبوع:</span>
+          <div className="flex flex-wrap gap-1">
             <button
-              id="filter-week-all"
               onClick={() => setSelectedWeekFilter('all')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded text-xs font-bold transition-all cursor-pointer ${
                 selectedWeekFilter === 'all'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                  ? 'bg-slate-800 text-white'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
               }`}
             >
-              جميع الأسابيع ({allSessions.length})
+              الكل ({allSessions.length})
             </button>
             {WEEKS_LIST.map((wk) => {
               const hasSession = activeWeeks.has(wk);
@@ -309,17 +219,15 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
               return (
                 <button
                   key={wk}
-                  id={`filter-week-${wk}`}
                   onClick={() => setSelectedWeekFilter(wk)}
                   disabled={!hasSession}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`px-2 py-0.5 rounded text-xs font-bold transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-emerald-600 text-white shadow-xs'
+                      ? 'bg-slate-800 text-white'
                       : hasSession
                       ? 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                      : 'bg-slate-50 text-slate-300 cursor-not-allowed line-through'
+                      : 'bg-slate-50 text-slate-300 cursor-not-allowed opacity-40'
                   }`}
-                  title={hasSession ? `الأسبوع ${wk}` : `لا توجد حصة نشاط في الأسبوع ${wk}`}
                 >
                   أسبوع {wk}
                 </button>
@@ -328,65 +236,76 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
           </div>
         </div>
 
-        {/* Teacher Schedule Table */}
-        <div className="border border-slate-200 rounded-xl overflow-hidden mb-6">
-          <div className="px-4 py-3 bg-slate-100/80 border-b border-slate-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-emerald-700" />
-              <span className="font-extrabold text-slate-800 text-sm">
-                تفاصيل حصص النشاط للأستاذ {selectedTeacher}
-              </span>
-              <span className="text-xs font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full mr-2">
-                {displayedSessions.length} حصة
-              </span>
-            </div>
-            <span className="text-xs text-slate-500 font-medium">
-              حصة النشاط المدرسية المعتمدة
-            </span>
-          </div>
-
-          <table className="w-full text-right border-collapse text-sm">
+        {/* The Professional Table */}
+        <div className="border border-slate-400 rounded-lg overflow-hidden">
+          <table className="w-full text-right border-collapse text-xs sm:text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-700 text-xs font-black uppercase border-b border-slate-200">
-                <th className="py-2.5 px-4 w-28">الأسبوع</th>
-                <th className="py-2.5 px-4 w-36">الفصل الدراسي</th>
-                <th className="py-2.5 px-4">اسم النشاط</th>
-                <th className="py-2.5 px-4 w-36">التصنيف</th>
+              <tr className="bg-slate-800 text-white font-bold border-b border-slate-400">
+                <th className="py-2 px-2.5 border-r border-slate-700 w-12 text-center whitespace-nowrap">
+                  م
+                </th>
+                <th className="py-2 px-3 border-r border-slate-700 w-24 text-center whitespace-nowrap">
+                  الأسبوع
+                </th>
+                <th className="py-2 px-3 border-r border-slate-700 w-28 text-center whitespace-nowrap">
+                  الفصل الدراسي
+                </th>
+                <th className="py-2 px-3 border-r border-slate-700 w-64 whitespace-nowrap">
+                  اسم النشاط والتصنيف
+                </th>
+                <th className="py-2 px-3 border-r border-slate-700 w-40 text-center whitespace-nowrap">
+                  درجة التقييم (من 100)
+                </th>
+                <th className="py-2 px-3 whitespace-nowrap">
+                  الملاحظات
+                </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-sm">
+            <tbody className="divide-y divide-slate-300">
               {displayedSessions.map((session, idx) => {
                 const style = getActivityBadgeColor(session.activity);
                 return (
                   <tr
                     key={`${session.week}-${session.gradeClass}-${idx}`}
-                    className="hover:bg-slate-50/80 transition-colors"
+                    className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}
                   >
-                    <td className="py-3 px-4 font-bold text-slate-900 whitespace-nowrap">
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 text-xs font-bold">
-                        <Calendar className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>الأسبوع {session.week}</span>
-                      </div>
+                    {/* Index */}
+                    <td className="py-2.5 px-2.5 border-r border-slate-300 text-center font-bold text-slate-500 whitespace-nowrap">
+                      {idx + 1}
                     </td>
 
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      <span className="inline-block font-bold text-sm bg-blue-50 text-blue-900 px-2.5 py-0.5 rounded-md border border-blue-200">
+                    {/* Week */}
+                    <td className="py-2.5 px-3 border-r border-slate-300 font-bold text-slate-800 text-center whitespace-nowrap">
+                      الأسبوع {session.week}
+                    </td>
+
+                    {/* Class */}
+                    <td className="py-2.5 px-3 border-r border-slate-300 text-center whitespace-nowrap">
+                      <span className="font-bold text-slate-900">
                         {session.gradeClass}
                       </span>
                     </td>
 
-                    <td className="py-3 px-4">
-                      <div className="font-extrabold text-slate-900 text-sm">
-                        {session.activity}
+                    {/* Activity and Category close together */}
+                    <td className="py-2.5 px-3 border-r border-slate-300 whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-900">
+                          {session.activity}
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-500">
+                          [{style.badge}]
+                        </span>
                       </div>
                     </td>
 
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      <span
-                        className={`inline-block px-2.5 py-1 rounded-md text-xs font-bold border ${style.bg}`}
-                      >
-                        {style.badge}
-                      </span>
+                    {/* Score */}
+                    <td className="py-2.5 px-3 border-r border-slate-300 text-center whitespace-nowrap">
+                      <ScoreBadge session={session} showLabel={true} />
+                    </td>
+
+                    {/* Notes */}
+                    <td className="py-2.5 px-3">
+                      <NotesCell session={session} />
                     </td>
                   </tr>
                 );
@@ -395,54 +314,9 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
           </table>
         </div>
 
-        {/* Visual Timeline / Week Grid for this Teacher */}
-        <div className="pt-2">
-          <div className="text-xs font-black text-slate-700 mb-2.5">
-            توزيع حصص المعلم على مدار أسابيع الفصل الدراسي:
-          </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
-            {WEEKS_LIST.map((wk) => {
-              const session = allSessions.find((s) => s.week === wk);
-              return (
-                <div
-                  key={wk}
-                  className={`p-2.5 rounded-xl border text-center ${
-                    session
-                      ? 'bg-emerald-50/70 border-emerald-300'
-                      : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'
-                  }`}
-                >
-                  <div className="text-[11px] font-bold text-slate-500 mb-0.5">
-                    الأسبوع {wk}
-                  </div>
-                  {session ? (
-                    <>
-                      <div
-                        className="text-xs font-extrabold text-emerald-900 truncate"
-                        title={session.activity}
-                      >
-                        {session.activity}
-                      </div>
-                      <div className="text-[11px] font-bold text-slate-700 mt-1 bg-white py-0.5 rounded border border-emerald-200">
-                        {session.gradeClass}
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-[11px] text-slate-400 py-1">—</div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Image Card Footer Stamp */}
-        <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-semibold">
-          <span>{SCHOOL_INFO.name} — رائد النشاط وإدارة المدرسة</span>
-          <span>خطة الفصل الدراسي الأول 1448هـ</span>
-        </div>
+        {/* Official Signatures Block */}
+        <OfficialSignatures />
       </div>
     </div>
   );
 };
-

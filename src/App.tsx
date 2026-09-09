@@ -4,6 +4,7 @@ import { TeacherView } from './components/TeacherView';
 import { WeekView } from './components/WeekView';
 import { ClassView } from './components/ClassView';
 import { MasterTableView } from './components/MasterTableView';
+import { EvaluationReportView } from './components/EvaluationReportView';
 import { ALL_TEACHERS, SCHOOL_INFO } from './data/scheduleData';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -63,6 +64,20 @@ export default function App() {
               transition={{ duration: 0.18 }}
             >
               <ClassView
+                onSelectTeacher={handleSelectTeacherFromAnywhere}
+              />
+            </motion.div>
+          )}
+
+          {currentView === 'evaluation' && (
+            <motion.div
+              key="evaluation"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+            >
+              <EvaluationReportView
                 onSelectTeacher={handleSelectTeacherFromAnywhere}
               />
             </motion.div>

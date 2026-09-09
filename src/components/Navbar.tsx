@@ -5,11 +5,12 @@ import {
   School,
   Table,
   Printer,
-  Sparkles,
+  Trophy,
 } from 'lucide-react';
 import { SCHOOL_INFO } from '../data/scheduleData';
+import { SchoolLogo } from './SchoolLogo';
 
-export type ViewMode = 'teacher' | 'week' | 'class' | 'master';
+export type ViewMode = 'teacher' | 'week' | 'class' | 'master' | 'evaluation';
 
 interface NavbarProps {
   currentView: ViewMode;
@@ -24,12 +25,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-3">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between py-2.5 gap-3">
           {/* Logo & School Title */}
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-xs shrink-0">
-              <Sparkles className="w-6 h-6" />
-            </div>
+            <SchoolLogo size="md" />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
@@ -39,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
                   {SCHOOL_INFO.term}
                 </span>
               </div>
-              <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
                 {SCHOOL_INFO.name} — {SCHOOL_INFO.title}
               </h1>
             </div>
@@ -50,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
             <button
               id="tab-teacher"
               onClick={() => onSelectView('teacher')}
-              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                 currentView === 'teacher'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -63,20 +62,20 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
             <button
               id="tab-week"
               onClick={() => onSelectView('week')}
-              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                 currentView === 'week'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <Calendar className="w-4 h-4" />
-              <span>حصص الأسبوع والفصول</span>
+              <span>حصص الأسبوع</span>
             </button>
 
             <button
               id="tab-class"
               onClick={() => onSelectView('class')}
-              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                 currentView === 'class'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -87,9 +86,22 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
             </button>
 
             <button
+              id="tab-evaluation"
+              onClick={() => onSelectView('evaluation')}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                currentView === 'evaluation'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/80'
+              }`}
+            >
+              <Trophy className="w-4 h-4 text-amber-500 group-hover:text-amber-600" />
+              <span>التقييم والمراكز الأولى</span>
+            </button>
+
+            <button
               id="tab-master"
               onClick={() => onSelectView('master')}
-              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                 currentView === 'master'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -105,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => 
               id="btn-print"
               onClick={handlePrint}
               title="طباعة الجدول الحالي"
-              className="flex items-center gap-1.5 px-3 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl text-sm font-medium transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span className="hidden lg:inline">طباعة</span>

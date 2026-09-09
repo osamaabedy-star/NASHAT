@@ -7,7 +7,9 @@ import {
   getActivityBadgeColor,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
-import { Table, Search, Printer, Download, Loader2, Sparkles } from 'lucide-react';
+import { SchoolLogo } from './SchoolLogo';
+import { OfficialSignatures } from './OfficialSignatures';
+import { Table, Search, Printer, Download, Loader2 } from 'lucide-react';
 
 interface MasterTableViewProps {
   onSelectTeacher?: (teacherName: string) => void;
@@ -105,9 +107,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         {/* Header for Image & Print */}
         <div className="pb-4 mb-4 border-b-2 border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black">
-              <Sparkles className="w-5 h-5" />
-            </div>
+            <SchoolLogo size="md" />
             <div>
               <div className="text-xs font-bold text-emerald-800">{SCHOOL_INFO.name}</div>
               <h1 className="text-base sm:text-lg font-black text-slate-900">
@@ -118,6 +118,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
           <div className="text-left text-xs text-slate-500 font-bold hidden sm:block">
             <div>المملكة العربية السعودية</div>
             <div>وزارة التعليم</div>
+            <div className="text-amber-700 text-[11px]">مدارس رياض الإبداع الأهلية</div>
           </div>
         </div>
 
@@ -253,11 +254,8 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
           </table>
         </div>
 
-        {/* Footer stamp */}
-        <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-semibold">
-          <span>{SCHOOL_INFO.name} — رائد النشاط الطلابي وإدارة المدرسة</span>
-          <span>الفصل الدراسي الأول 1448هـ</span>
-        </div>
+        {/* Official Signatures */}
+        <OfficialSignatures />
       </div>
     </div>
   );

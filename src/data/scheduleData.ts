@@ -1,10 +1,17 @@
 import { ScheduleSession } from '../types';
 
 export const SCHOOL_INFO = {
-  name: 'ابتدائية رياض الإبداع',
+  name: 'مدارس رياض الإبداع الأهلية',
+  shortName: 'ابتدائية رياض الإبداع',
+  stage: 'المرحلة الابتدائية',
   term: 'الفصل الدراسي الأول',
   year: 'العام الدراسي 1448هـ',
-  title: 'خطة حصة النشاط الطلابي',
+  title: 'جدول حصص النشاط الطلابي',
+  activityLeader: 'الأستاذ / ناصر رمضان',
+  principal: 'الأستاذ / صالح بن متعب الحمادي',
+  ministry: 'المملكة العربية السعودية',
+  ministryOfEdu: 'وزارة التعليم',
+  directorate: 'الإدارة العامة للتعليم بمنطقة الرياض',
 };
 
 export const CLASSES_LIST: string[] = [

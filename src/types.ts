@@ -25,3 +25,10 @@ export interface ClassSummary {
   totalSessions: number;
   sessions: ScheduleSession[];
 }
+
+export interface EvaluationEntry {
+  score: number | null;
+  notes: string;
+  updatedAt?: string;
+}
+
