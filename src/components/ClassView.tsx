@@ -146,8 +146,8 @@ export const ClassView: React.FC<ClassViewProps> = ({ onSelectTeacher }) => {
         />
 
         {/* Sessions Table */}
-        <div className="border border-slate-400 rounded-lg overflow-hidden">
-          <table className="w-full text-right border-collapse text-xs sm:text-sm">
+        <div className="border border-slate-400 rounded-lg overflow-x-auto">
+          <table className="w-full min-w-[850px] text-right border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="bg-slate-800 text-white font-bold border-b border-slate-400">
                 <th className="py-2 px-2.5 border-r border-slate-700 w-12 text-center whitespace-nowrap">م</th>

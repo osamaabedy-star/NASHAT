@@ -5,6 +5,7 @@ import { WeekView } from './components/WeekView';
 import { ClassView } from './components/ClassView';
 import { MasterTableView } from './components/MasterTableView';
 import { EvaluationReportView } from './components/EvaluationReportView';
+import { ExportSuccessModal } from './components/ExportSuccessModal';
 import { ALL_TEACHERS, SCHOOL_INFO } from './data/scheduleData';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -111,6 +112,9 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Global Image Export Success & Mobile Share Modal */}
+      <ExportSuccessModal />
     </div>
   );
 }

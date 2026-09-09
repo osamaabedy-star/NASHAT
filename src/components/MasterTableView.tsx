@@ -4,12 +4,14 @@ import {
   CLASSES_LIST,
   SCHEDULE_DATA,
   SCHOOL_INFO,
-  getActivityBadgeColor,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
-import { SchoolLogo } from './SchoolLogo';
+import { OfficialDocumentHeader } from './OfficialDocumentHeader';
 import { OfficialSignatures } from './OfficialSignatures';
-import { Table, Search, Printer, Download, Loader2 } from 'lucide-react';
+import { ScoreBadge } from './ScoreBadge';
+import { SessionEvaluationModal } from './SessionEvaluationModal';
+import { ScheduleSession } from '../types';
+import { Table, Search, Printer, Download, Loader2, Award, Edit3, CheckSquare, Square } from 'lucide-react';
 
 interface MasterTableViewProps {
   onSelectTeacher?: (teacherName: string) => void;
@@ -20,6 +22,8 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
 }) => {
   const [highlightTerm, setHighlightTerm] = useState<string>('');
   const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [showEvaluationRow, setShowEvaluationRow] = useState<boolean>(true);
+  const [selectedSessionForModal, setSelectedSessionForModal] = useState<ScheduleSession | null>(null);
 
   // Classes order matching the paper from right to left:
   // أول / أ, أول / ب, ثاني / أ, ثاني / ب, ثالث / أ, ثالث / ب, ثالث / ج, رابع / أ, رابع / ب, خامس / أ, خامس / ب, سادس / أ
@@ -54,20 +58,40 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
             <span>الجدول العام الشامل لخطة النشاط الطلابي</span>
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            جدول مطابق للوثيقة الرسمية يوضح حصص النشاط لجميع الفصول والمعلمين عبر كل الأسابيع.
+            جدول مطابق للوثيقة الرسمية يوضح حصص النشاط لجميع الفصول والمعلمين عبر كل الأسابيع مع إمكانية الرصد المباشر.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="relative w-full sm:w-56">
+          {/* Toggle Evaluation Row */}
+          <button
+            type="button"
+            onClick={() => setShowEvaluationRow(!showEvaluationRow)}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              showEvaluationRow
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+            }`}
+            title="إظهار أو إخفاء صف رصد الدرجات في الجدول العام"
+          >
+            {showEvaluationRow ? (
+              <CheckSquare className="w-4 h-4 text-emerald-600" />
+            ) : (
+              <Square className="w-4 h-4 text-slate-400" />
+            )}
+            <Award className="w-3.5 h-3.5" />
+            <span>خانة الرصد والدرجات</span>
+          </button>
+
+          <div className="relative w-full sm:w-48">
             <input
               type="text"
               value={highlightTerm}
               onChange={(e) => setHighlightTerm(e.target.value)}
               placeholder="تمييز معلم أو نشاط..."
-              className="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 transition-all pr-9"
+              className="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 transition-all pr-8"
             />
-            <Search className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2" />
           </div>
 
           <button
@@ -99,28 +123,29 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         </div>
       </div>
 
-      {/* Main Table Container */}
+      {/* Main Table Container for Export and Display */}
       <div
         id="master-table-export-card"
-        className="bg-white rounded-2xl border border-slate-300 p-4 shadow-xs overflow-hidden"
+        className="bg-white rounded-2xl border border-slate-300 p-4 sm:p-6 shadow-xs overflow-hidden"
       >
-        {/* Header for Image & Print */}
-        <div className="pb-4 mb-4 border-b-2 border-slate-200 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <SchoolLogo size="md" />
-            <div>
-              <div className="text-xs font-bold text-emerald-800">{SCHOOL_INFO.name}</div>
-              <h1 className="text-base sm:text-lg font-black text-slate-900">
-                الجدول العام الشامل لخطة النشاط الطلابي — {SCHOOL_INFO.term} ({SCHOOL_INFO.year})
-              </h1>
+        {/* Official Ministerial Header */}
+        <OfficialDocumentHeader
+          title="الجدول العام الشامل لخطة النشاط الطلابي"
+          subTitle={`${SCHOOL_INFO.term} — ${SCHOOL_INFO.year} (لجميع الفصول والمعلمين)`}
+          metadata={
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-700">
+              <span>إجمالي الأسابيع: {WEEKS_LIST.length} أسابيع</span>
+              <span>•</span>
+              <span>الفصول الدراسية: {orderedClasses.length} فصلاً</span>
+              {showEvaluationRow && (
+                <>
+                  <span>•</span>
+                  <span className="text-emerald-700 font-extrabold">مُفعل به الرصد المباشر للتقييم</span>
+                </>
+              )}
             </div>
-          </div>
-          <div className="text-left text-xs text-slate-500 font-bold hidden sm:block">
-            <div>المملكة العربية السعودية</div>
-            <div>وزارة التعليم</div>
-            <div className="text-amber-700 text-[11px]">مدارس رياض الإبداع الأهلية</div>
-          </div>
-        </div>
+          }
+        />
 
         <div className="overflow-x-auto">
           <table className="w-full text-center border-collapse text-xs">
@@ -129,20 +154,20 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
               <tr className="bg-slate-800 text-white font-extrabold border-b border-slate-300">
                 <th
                   rowSpan={1}
-                  className="py-3 px-3 border-l border-slate-700 w-24 bg-slate-900 sticky right-0 z-20"
+                  className="py-3 px-3 border-l border-slate-700 w-24 bg-slate-900 sticky right-0 z-20 whitespace-nowrap"
                 >
                   الأسبوع
                 </th>
                 <th
                   rowSpan={1}
-                  className="py-3 px-2 border-l border-slate-700 w-20 bg-slate-900"
+                  className="py-3 px-2 border-l border-slate-700 w-24 bg-slate-900 whitespace-nowrap"
                 >
                   البيان
                 </th>
                 {orderedClasses.map((cls) => (
                   <th
                     key={cls}
-                    className="py-3 px-2 border-l border-slate-700 min-w-[90px] font-black"
+                    className="py-3 px-2 border-l border-slate-700 min-w-[95px] font-black whitespace-nowrap"
                   >
                     {cls}
                   </th>
@@ -154,14 +179,15 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
             <tbody>
               {WEEKS_LIST.map((weekNum, idx) => {
                 const weekBg = idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50';
+                const rowSpanCount = showEvaluationRow ? 3 : 2;
 
                 return (
                   <React.Fragment key={weekNum}>
                     {/* Row 1: Program/Activity */}
                     <tr className={`border-t-2 border-slate-300 ${weekBg}`}>
-                      {/* Week Number (rowSpan 2) */}
+                      {/* Week Number (rowSpan 2 or 3) */}
                       <td
-                        rowSpan={2}
+                        rowSpan={rowSpanCount}
                         className="py-2 px-3 border-l border-slate-300 font-black text-sm text-slate-900 bg-slate-100/90 sticky right-0 z-10 align-middle"
                       >
                         <div className="text-base font-black text-emerald-800">
@@ -190,15 +216,17 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                         return (
                           <td
                             key={`act-${weekNum}-${cls}`}
-                            className={`py-2 px-1.5 border-l border-slate-200 font-extrabold text-[11px] leading-tight ${
+                            onClick={() => session && setSelectedSessionForModal(session)}
+                            className={`py-2 px-1.5 border-l border-slate-200 font-extrabold text-[11px] leading-tight cursor-pointer ${
                               isMatch
                                 ? 'bg-amber-100 text-amber-900 font-black ring-2 ring-amber-400'
                                 : activity.includes('نافس')
-                                ? 'text-emerald-800 bg-emerald-50/40'
+                                ? 'text-emerald-800 bg-emerald-50/40 hover:bg-emerald-100/60'
                                 : activity.includes('فنون') || activity.includes('الوطني')
-                                ? 'text-purple-800 bg-purple-50/40'
-                                : 'text-slate-800'
-                            }`}
+                                ? 'text-purple-800 bg-purple-50/40 hover:bg-purple-100/60'
+                                : 'text-slate-800 hover:bg-slate-100'
+                            } transition-colors`}
+                            title={session ? 'انقر لعرض الحصة وتدوين التقييم والملاحظات' : ''}
                           >
                             {activity}
                           </td>
@@ -207,7 +235,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                     </tr>
 
                     {/* Row 2: Teacher */}
-                    <tr className={`border-b border-slate-300 ${weekBg}`}>
+                    <tr className={`border-b border-slate-200 ${weekBg}`}>
                       {/* Row Title: المعلم */}
                       <td className="py-2 px-2 border-l border-slate-300 font-bold text-slate-600 bg-slate-50 whitespace-nowrap">
                         المعلم
@@ -247,6 +275,53 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                         );
                       })}
                     </tr>
+
+                    {/* Row 3: Evaluation / Scoring (Optional toggle) */}
+                    {showEvaluationRow && (
+                      <tr className={`border-b border-slate-300 ${weekBg}`}>
+                        {/* Row Title: الرصد والدرجة */}
+                        <td className="py-1.5 px-2 border-l border-slate-300 font-black text-emerald-900 bg-emerald-50/80 whitespace-nowrap text-[11px]">
+                          الرصد والدرجة
+                        </td>
+
+                        {/* Cells for each class */}
+                        {orderedClasses.map((cls) => {
+                          const session = SCHEDULE_DATA.find(
+                            (s) => s.week === weekNum && s.gradeClass === cls
+                          );
+
+                          if (!session) {
+                            return (
+                              <td
+                                key={`eval-${weekNum}-${cls}`}
+                                className="py-1 px-1 border-l border-slate-200 text-slate-300 text-center"
+                              >
+                                —
+                              </td>
+                            );
+                          }
+
+                          return (
+                            <td
+                              key={`eval-${weekNum}-${cls}`}
+                              className="py-1 px-1 border-l border-slate-200 text-center align-middle"
+                            >
+                              <div className="flex items-center justify-center gap-1">
+                                <ScoreBadge session={session} size="sm" showLabel={false} />
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedSessionForModal(session)}
+                                  title="فتح تفاصيل الحصة ورصد الدرجة والملاحظات"
+                                  className="p-1 rounded hover:bg-slate-200 text-slate-400 hover:text-emerald-700 transition-colors cursor-pointer shrink-0"
+                                >
+                                  <Edit3 className="w-2.5 h-2.5" />
+                                </button>
+                              </div>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    )}
                   </React.Fragment>
                 );
               })}
@@ -257,6 +332,13 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         {/* Official Signatures */}
         <OfficialSignatures />
       </div>
+
+      {/* Session Evaluation Modal */}
+      <SessionEvaluationModal
+        session={selectedSessionForModal}
+        isOpen={selectedSessionForModal !== null}
+        onClose={() => setSelectedSessionForModal(null)}
+      />
     </div>
   );
 };
