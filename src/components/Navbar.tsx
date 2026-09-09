@@ -1,0 +1,118 @@
+import React from 'react';
+import {
+  Calendar,
+  UserCheck,
+  School,
+  Table,
+  Printer,
+  Sparkles,
+} from 'lucide-react';
+import { SCHOOL_INFO } from '../data/scheduleData';
+
+export type ViewMode = 'teacher' | 'week' | 'class' | 'master';
+
+interface NavbarProps {
+  currentView: ViewMode;
+  onSelectView: (view: ViewMode) => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ currentView, onSelectView }) => {
+  const handlePrint = () => {
+    window.print();
+  };
+
+  return (
+    <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-3">
+          {/* Logo & School Title */}
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-xs shrink-0">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  {SCHOOL_INFO.year}
+                </span>
+                <span className="text-xs text-slate-500 font-medium">
+                  {SCHOOL_INFO.term}
+                </span>
+              </div>
+              <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                {SCHOOL_INFO.name} — {SCHOOL_INFO.title}
+              </h1>
+            </div>
+          </div>
+
+          {/* Navigation Tabs */}
+          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+            <button
+              id="tab-teacher"
+              onClick={() => onSelectView('teacher')}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+                currentView === 'teacher'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <UserCheck className="w-4 h-4" />
+              <span>جدول المعلم</span>
+            </button>
+
+            <button
+              id="tab-week"
+              onClick={() => onSelectView('week')}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+                currentView === 'week'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <Calendar className="w-4 h-4" />
+              <span>حصص الأسبوع والفصول</span>
+            </button>
+
+            <button
+              id="tab-class"
+              onClick={() => onSelectView('class')}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+                currentView === 'class'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <School className="w-4 h-4" />
+              <span>جدول الفصل</span>
+            </button>
+
+            <button
+              id="tab-master"
+              onClick={() => onSelectView('master')}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+                currentView === 'master'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <Table className="w-4 h-4" />
+              <span>الخطة الكاملة</span>
+            </button>
+
+            <div className="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
+
+            <button
+              id="btn-print"
+              onClick={handlePrint}
+              title="طباعة الجدول الحالي"
+              className="flex items-center gap-1.5 px-3 py-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl text-sm font-medium transition-colors cursor-pointer"
+            >
+              <Printer className="w-4 h-4" />
+              <span className="hidden lg:inline">طباعة</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};

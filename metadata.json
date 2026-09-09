@@ -1,0 +1,6 @@
+{
+  "name": "جدول حصص النشاط الطلابي",
+  "description": "منصة خطة حصص النشاط الطلابي لابتدائية رياض الإبداع للعام الدراسي 1448هـ - جداول مخصصة للمعلمين والفصول والخطة الأسبوعية المعتمدة",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
