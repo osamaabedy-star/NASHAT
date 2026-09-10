@@ -6,12 +6,27 @@ import { ClassView } from './components/ClassView';
 import { MasterTableView } from './components/MasterTableView';
 import { EvaluationReportView } from './components/EvaluationReportView';
 import { ExportSuccessModal } from './components/ExportSuccessModal';
+import { AdminLoginModal } from './components/AdminLoginModal';
+import { AdminScheduleManagerModal } from './components/AdminScheduleManagerModal';
 import { ALL_TEACHERS, SCHOOL_INFO } from './data/scheduleData';
+import { useAdminAuth } from './hooks/useAdminAuth';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewMode>('teacher');
   const [selectedTeacher, setSelectedTeacher] = useState<string>(ALL_TEACHERS[0]);
+
+  const { isAdmin, logout } = useAdminAuth();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const [isAdminManagerOpen, setIsAdminManagerOpen] = useState<boolean>(false);
+
+  const handleOpenAdmin = () => {
+    if (isAdmin) {
+      setIsAdminManagerOpen(true);
+    } else {
+      setIsLoginModalOpen(true);
+    }
+  };
 
   const handleSelectTeacherFromAnywhere = (teacherName: string) => {
     setSelectedTeacher(teacherName);
@@ -25,6 +40,9 @@ export default function App() {
       <Navbar
         currentView={currentView}
         onSelectView={(v) => setCurrentView(v)}
+        isAdmin={isAdmin}
+        onOpenAdminModal={handleOpenAdmin}
+        onLogoutAdmin={logout}
       />
 
       {/* Main Content Area */}
@@ -94,6 +112,7 @@ export default function App() {
             >
               <MasterTableView
                 onSelectTeacher={handleSelectTeacherFromAnywhere}
+                onOpenAdminModal={handleOpenAdmin}
               />
             </motion.div>
           )}
@@ -101,20 +120,37 @@ export default function App() {
       </main>
 
       {/* Clean, Minimal Footer */}
-      <footer className="bg-white border-t border-slate-200/80 py-4 text-center text-xs text-slate-500 no-print">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <footer className="bg-white border-t border-slate-200/80 py-3 text-center text-xs text-slate-500 no-print">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
           <div>
             <span className="font-bold text-slate-700">{SCHOOL_INFO.name}</span>{' '}
             — {SCHOOL_INFO.title} ({SCHOOL_INFO.term} {SCHOOL_INFO.year})
-          </div>
-          <div className="text-slate-400">
-            تم استخراج البيانات والجدولة بدقة وفق الوثيقة المعتمدة
           </div>
         </div>
       </footer>
 
       {/* Global Image Export Success & Mobile Share Modal */}
       <ExportSuccessModal />
+
+      {/* Admin Login Modal (PIN: 1234) */}
+      <AdminLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onSuccess={() => {
+          setIsLoginModalOpen(false);
+          setIsAdminManagerOpen(true);
+        }}
+      />
+
+      {/* Full Admin Schedule Manager Dashboard */}
+      <AdminScheduleManagerModal
+        isOpen={isAdminManagerOpen}
+        onClose={() => setIsAdminManagerOpen(false)}
+        onLogout={() => {
+          logout();
+          setIsAdminManagerOpen(false);
+        }}
+      />
     </div>
   );
 }

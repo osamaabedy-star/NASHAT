@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   WEEKS_LIST,
   CLASSES_LIST,
-  SCHEDULE_DATA,
   SCHOOL_INFO,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
@@ -10,20 +9,41 @@ import { OfficialDocumentHeader } from './OfficialDocumentHeader';
 import { OfficialSignatures } from './OfficialSignatures';
 import { ScoreBadge } from './ScoreBadge';
 import { SessionEvaluationModal } from './SessionEvaluationModal';
+import { QuickEditSessionModal } from './QuickEditSessionModal';
 import { ScheduleSession } from '../types';
-import { Table, Search, Printer, Download, Loader2, Award, Edit3, CheckSquare, Square } from 'lucide-react';
+import { useScheduleData } from '../hooks/useScheduleData';
+import { useAdminAuth } from '../hooks/useAdminAuth';
+import {
+  Table,
+  Search,
+  Printer,
+  Download,
+  Loader2,
+  Award,
+  Edit3,
+  CheckSquare,
+  Square,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react';
 
 interface MasterTableViewProps {
   onSelectTeacher?: (teacherName: string) => void;
+  onOpenAdminModal?: () => void;
 }
 
 export const MasterTableView: React.FC<MasterTableViewProps> = ({
   onSelectTeacher,
+  onOpenAdminModal,
 }) => {
+  const schedule = useScheduleData();
+  const { isAdmin } = useAdminAuth();
+
   const [highlightTerm, setHighlightTerm] = useState<string>('');
   const [isExporting, setIsExporting] = useState<boolean>(false);
   const [showEvaluationRow, setShowEvaluationRow] = useState<boolean>(true);
   const [selectedSessionForModal, setSelectedSessionForModal] = useState<ScheduleSession | null>(null);
+  const [quickEditSession, setQuickEditSession] = useState<ScheduleSession | null>(null);
 
   // Classes order matching the paper from right to left:
   // أول / أ, أول / ب, ثاني / أ, ثاني / ب, ثالث / أ, ثالث / ب, ثالث / ج, رابع / أ, رابع / ب, خامس / أ, خامس / ب, سادس / أ
@@ -63,6 +83,17 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {/* Admin Management Button if logged in */}
+          {isAdmin && onOpenAdminModal && (
+            <button
+              onClick={onOpenAdminModal}
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-black shadow-xs transition-all cursor-pointer"
+            >
+              <ShieldCheck className="w-4 h-4 text-emerald-300 animate-pulse" />
+              <span>لوحة إدارة وتعديل الجداول</span>
+            </button>
+          )}
+
           {/* Toggle Evaluation Row */}
           <button
             type="button"
@@ -132,17 +163,11 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         <OfficialDocumentHeader
           title="الجدول العام الشامل لخطة النشاط الطلابي"
           subTitle={`${SCHOOL_INFO.term} — ${SCHOOL_INFO.year} (لجميع الفصول والمعلمين)`}
-          metadata={
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-700">
+          leftContent={
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-slate-100 border border-slate-200 rounded-md text-[10.5px] font-bold text-slate-700 whitespace-nowrap">
               <span>إجمالي الأسابيع: {WEEKS_LIST.length} أسابيع</span>
               <span>•</span>
               <span>الفصول الدراسية: {orderedClasses.length} فصلاً</span>
-              {showEvaluationRow && (
-                <>
-                  <span>•</span>
-                  <span className="text-emerald-700 font-extrabold">مُفعل به الرصد المباشر للتقييم</span>
-                </>
-              )}
             </div>
           }
         />
@@ -205,7 +230,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
 
                       {/* Cells for each class */}
                       {orderedClasses.map((cls) => {
-                        const session = SCHEDULE_DATA.find(
+                        const session = schedule.find(
                           (s) => s.week === weekNum && s.gradeClass === cls
                         );
                         const activity = session ? session.activity : '—';
@@ -216,8 +241,15 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                         return (
                           <td
                             key={`act-${weekNum}-${cls}`}
-                            onClick={() => session && setSelectedSessionForModal(session)}
-                            className={`py-2 px-1.5 border-l border-slate-200 font-extrabold text-[11px] leading-tight cursor-pointer ${
+                            onClick={() => {
+                              if (!session) return;
+                              if (isAdmin) {
+                                setQuickEditSession(session);
+                              } else {
+                                setSelectedSessionForModal(session);
+                              }
+                            }}
+                            className={`py-2 px-1.5 border-l border-slate-200 font-extrabold text-[11px] leading-tight cursor-pointer group relative ${
                               isMatch
                                 ? 'bg-amber-100 text-amber-900 font-black ring-2 ring-amber-400'
                                 : activity.includes('نافس')
@@ -226,9 +258,22 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                                 ? 'text-purple-800 bg-purple-50/40 hover:bg-purple-100/60'
                                 : 'text-slate-800 hover:bg-slate-100'
                             } transition-colors`}
-                            title={session ? 'انقر لعرض الحصة وتدوين التقييم والملاحظات' : ''}
+                            title={
+                              session
+                                ? isAdmin
+                                  ? 'انقر لتعديل الحصة والبرنامج والمعلم (وضع الإدارة)'
+                                  : 'انقر لعرض الحصة وتدوين التقييم والملاحظات'
+                                : ''
+                            }
                           >
-                            {activity}
+                            <div className="flex items-center justify-center gap-1">
+                              <span>{activity}</span>
+                              {isAdmin && session && (
+                                <span className="opacity-0 group-hover:opacity-100 p-0.5 rounded bg-emerald-100 text-emerald-800 transition-opacity no-print">
+                                  <Edit3 className="w-2.5 h-2.5" />
+                                </span>
+                              )}
+                            </div>
                           </td>
                         );
                       })}
@@ -243,7 +288,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
 
                       {/* Cells for each class */}
                       {orderedClasses.map((cls) => {
-                        const session = SCHEDULE_DATA.find(
+                        const session = schedule.find(
                           (s) => s.week === weekNum && s.gradeClass === cls
                         );
                         const teacher = session ? session.teacher : '—';
@@ -254,23 +299,37 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
                         return (
                           <td
                             key={`tch-${weekNum}-${cls}`}
-                            className={`py-1.5 px-1.5 border-l border-slate-200 text-[11px] font-semibold ${
+                            className={`py-1.5 px-1.5 border-l border-slate-200 text-[11px] font-semibold group ${
                               isMatch
                                 ? 'bg-amber-200 text-amber-950 font-black ring-2 ring-amber-500'
                                 : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/70'
                             } transition-colors`}
                           >
-                            {onSelectTeacher && session ? (
-                              <button
-                                onClick={() => onSelectTeacher(teacher)}
-                                className="w-full text-center hover:underline cursor-pointer"
-                                title={`عرض جدول ${teacher}`}
-                              >
-                                {teacher}
-                              </button>
-                            ) : (
-                              teacher
-                            )}
+                            <div className="flex items-center justify-center gap-1">
+                              {onSelectTeacher && session ? (
+                                <button
+                                  onClick={() => onSelectTeacher(teacher)}
+                                  className="text-center hover:underline cursor-pointer"
+                                  title={`عرض جدول ${teacher}`}
+                                >
+                                  {teacher}
+                                </button>
+                              ) : (
+                                <span>{teacher}</span>
+                              )}
+                              {isAdmin && session && (
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setQuickEditSession(session);
+                                  }}
+                                  className="opacity-0 group-hover:opacity-100 p-0.5 rounded bg-amber-100 text-amber-900 transition-opacity no-print"
+                                  title="تعديل إسناد المعلم"
+                                >
+                                  <Edit3 className="w-2.5 h-2.5" />
+                                </button>
+                              )}
+                            </div>
                           </td>
                         );
                       })}
@@ -286,7 +345,7 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
 
                         {/* Cells for each class */}
                         {orderedClasses.map((cls) => {
-                          const session = SCHEDULE_DATA.find(
+                          const session = schedule.find(
                             (s) => s.week === weekNum && s.gradeClass === cls
                           );
 
@@ -338,6 +397,13 @@ export const MasterTableView: React.FC<MasterTableViewProps> = ({
         session={selectedSessionForModal}
         isOpen={selectedSessionForModal !== null}
         onClose={() => setSelectedSessionForModal(null)}
+      />
+
+      {/* Quick Edit Session Modal (Admin) */}
+      <QuickEditSessionModal
+        session={quickEditSession}
+        isOpen={quickEditSession !== null}
+        onClose={() => setQuickEditSession(null)}
       />
     </div>
   );

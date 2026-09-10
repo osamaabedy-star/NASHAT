@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import {
   WEEKS_LIST,
   CLASSES_LIST,
-  getWeekSessions,
   getActivityBadgeColor,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
@@ -10,6 +9,10 @@ import { OfficialDocumentHeader } from './OfficialDocumentHeader';
 import { OfficialSignatures } from './OfficialSignatures';
 import { ScoreBadge } from './ScoreBadge';
 import { NotesCell } from './NotesCell';
+import { QuickEditSessionModal } from './QuickEditSessionModal';
+import { useScheduleData } from '../hooks/useScheduleData';
+import { useAdminAuth } from '../hooks/useAdminAuth';
+import { ScheduleSession } from '../types';
 import {
   Calendar,
   User,
@@ -18,6 +21,7 @@ import {
   ChevronLeft,
   Download,
   Loader2,
+  Edit3,
 } from 'lucide-react';
 
 interface WeekViewProps {
@@ -25,14 +29,18 @@ interface WeekViewProps {
 }
 
 export const WeekView: React.FC<WeekViewProps> = ({ onSelectTeacher }) => {
+  const schedule = useScheduleData();
+  const { isAdmin } = useAdminAuth();
+
   const [selectedWeek, setSelectedWeek] = useState<number>(WEEKS_LIST[0]);
   const [filterClass, setFilterClass] = useState<string>('all');
   const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [editingSession, setEditingSession] = useState<ScheduleSession | null>(null);
 
-  // Sessions for current week
+  // Sessions for current week from dynamic schedule
   const weekSessions = useMemo(() => {
-    return getWeekSessions(selectedWeek);
-  }, [selectedWeek]);
+    return schedule.filter((s) => s.week === selectedWeek);
+  }, [schedule, selectedWeek]);
 
   // Filtered by class if selected
   const displayedSessions = useMemo(() => {
@@ -159,11 +167,11 @@ export const WeekView: React.FC<WeekViewProps> = ({ onSelectTeacher }) => {
         {/* Ministerial Header */}
         <OfficialDocumentHeader
           title={`جدول حصص النشاط الطلابي لجميع الفصول — الأسبوع ${selectedWeek}`}
-          metadata={
-            <div className="inline-flex items-center gap-4 text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-md border border-slate-200">
-              <span>عدد الحصص المنفذة: <b className="text-slate-900">{weekSessions.length}</b> حصة</span>
+          leftContent={
+            <div className="inline-flex items-center gap-2 text-[10.5px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200 whitespace-nowrap">
+              <span>الحصص المنفذة: <b className="text-slate-900">{weekSessions.length}</b></span>
               <span>•</span>
-              <span>فصول المرحلة: <b className="text-slate-900">{CLASSES_LIST.length}</b> فصلاً</span>
+              <span>فصول المرحلة: <b className="text-slate-900">{CLASSES_LIST.length}</b></span>
             </div>
           }
         />
@@ -250,7 +258,19 @@ export const WeekView: React.FC<WeekViewProps> = ({ onSelectTeacher }) => {
 
                     {/* Notes */}
                     <td className="py-2.5 px-3">
-                      <NotesCell session={session} />
+                      <div className="flex items-center justify-between gap-2">
+                        <NotesCell session={session} />
+                        {isAdmin && (
+                          <button
+                            onClick={() => setEditingSession(session)}
+                            className="p-1 rounded bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-bold flex items-center gap-1 transition-colors shrink-0 no-print cursor-pointer"
+                            title="تعديل الحصة أو البرنامج أو المعلم"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                            <span>تعديل</span>
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -262,6 +282,13 @@ export const WeekView: React.FC<WeekViewProps> = ({ onSelectTeacher }) => {
         {/* Official Signatures Block */}
         <OfficialSignatures />
       </div>
+
+      {/* Quick Edit Session Modal */}
+      <QuickEditSessionModal
+        session={editingSession}
+        isOpen={editingSession !== null}
+        onClose={() => setEditingSession(null)}
+      />
     </div>
   );
 };

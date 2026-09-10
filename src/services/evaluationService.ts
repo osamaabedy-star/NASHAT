@@ -1,5 +1,5 @@
 import { ScheduleSession, EvaluationEntry } from '../types';
-import { SCHEDULE_DATA } from '../data/scheduleData';
+import { getCurrentSchedule } from './scheduleService';
 
 const LOCAL_STORAGE_BACKUP_KEY = 'riyadh_activity_evaluations_backup_1448';
 
@@ -277,7 +277,8 @@ export function getGradeLabel(score: number | null) {
 
 // Activity rankings based strictly on evaluated sessions
 export function getActivityReport(activityName: string): ActivityRankingReport {
-  const matchingSessions = SCHEDULE_DATA.filter((s) => s.activity === activityName);
+  const current = getCurrentSchedule();
+  const matchingSessions = current.filter((s) => s.activity === activityName);
 
   const evaluated = matchingSessions.map((s) => {
     const entry = getEvaluationForSession(s);
@@ -321,10 +322,11 @@ export function getActivityReport(activityName: string): ActivityRankingReport {
 
 // Summary of all teachers
 export function getTeachersSummary(): TeacherEvaluationSummary[] {
-  const teacherNames = Array.from(new Set(SCHEDULE_DATA.map((s) => s.teacher)));
+  const current = getCurrentSchedule();
+  const teacherNames = Array.from(new Set(current.map((s) => s.teacher)));
 
   return teacherNames.map((teacher) => {
-    const sessions = SCHEDULE_DATA.filter((s) => s.teacher === teacher);
+    const sessions = current.filter((s) => s.teacher === teacher);
     const evaluated = sessions.map((s) => {
       const entry = getEvaluationForSession(s);
       return {

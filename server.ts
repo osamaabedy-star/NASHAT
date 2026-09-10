@@ -107,6 +107,85 @@ app.post("/api/evaluations/reset", (req, res) => {
   res.json({ success: true, message: "All evaluations reset to empty" });
 });
 
+// --- Schedule Management API ---
+const SCHEDULE_FILE = path.join(DATA_DIR, "schedule.json");
+
+function readScheduleFile(): any[] | null {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (fs.existsSync(SCHEDULE_FILE)) {
+      const raw = fs.readFileSync(SCHEDULE_FILE, "utf-8");
+      return JSON.parse(raw);
+    }
+  } catch (err) {
+    console.error("Error reading schedule file:", err);
+  }
+  return null;
+}
+
+function writeScheduleFile(data: any[]) {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(SCHEDULE_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Error writing schedule file:", err);
+  }
+}
+
+// GET current schedule
+app.get("/api/schedule", (req, res) => {
+  const schedule = readScheduleFile();
+  res.json({ success: true, schedule: schedule || [] });
+});
+
+// POST save schedule with strict teacher conflict check
+app.post("/api/schedule", (req, res) => {
+  const { schedule } = req.body;
+  if (!Array.isArray(schedule)) {
+    res.status(400).json({ success: false, error: "Schedule must be an array of sessions" });
+    return;
+  }
+
+  // Audit for teacher duplicates in the same week
+  const weekTeacherMap: Record<string, Record<string, string[]>> = {};
+  for (const session of schedule) {
+    const w = String(session.week);
+    const teacher = (session.teacher || "").trim();
+    if (!teacher) continue;
+
+    if (!weekTeacherMap[w]) weekTeacherMap[w] = {};
+    if (!weekTeacherMap[w][teacher]) weekTeacherMap[w][teacher] = [];
+    weekTeacherMap[w][teacher].push(session.gradeClass);
+
+    if (weekTeacherMap[w][teacher].length > 1) {
+      res.status(400).json({
+        success: false,
+        error: `تنبيه تعارض: المعلم (${teacher}) مسند له أكثر من حصة في الأسبوع (${w}) مع الفصول: (${weekTeacherMap[w][teacher].join("، ")})! النظام يمنع تكرار المعلم في أكثر من حصة بنفس الأسبوع.`,
+      });
+      return;
+    }
+  }
+
+  writeScheduleFile(schedule);
+  res.json({ success: true, count: schedule.length });
+});
+
+// POST reset schedule
+app.post("/api/schedule/reset", (req, res) => {
+  try {
+    if (fs.existsSync(SCHEDULE_FILE)) {
+      fs.unlinkSync(SCHEDULE_FILE);
+    }
+    res.json({ success: true, message: "Schedule reset to default baseline" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Failed to reset schedule file" });
+  }
+});
+
 async function startServer() {
   // Vite middleware in dev mode
   if (process.env.NODE_ENV !== "production") {

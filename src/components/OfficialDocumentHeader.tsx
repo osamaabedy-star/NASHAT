@@ -6,18 +6,22 @@ interface OfficialDocumentHeaderProps {
   title: string;
   subTitle?: string;
   metadata?: React.ReactNode;
+  leftContent?: React.ReactNode;
+  approvalDate?: string;
 }
 
 export const OfficialDocumentHeader: React.FC<OfficialDocumentHeaderProps> = ({
   title,
   subTitle = `${SCHOOL_INFO.term} — ${SCHOOL_INFO.year}`,
   metadata,
+  leftContent,
+  approvalDate,
 }) => {
   return (
-    <div className="pb-5 mb-5 border-b-2 border-slate-800">
+    <div className="pb-3 mb-3 border-b-2 border-slate-800">
       <div className="grid grid-cols-3 items-center gap-2 sm:gap-4">
         {/* Right: Ministerial Information */}
-        <div className="text-right space-y-0.5 text-[11px] sm:text-xs text-slate-800 font-bold leading-tight">
+        <div className="text-right space-y-0.5 text-[10.5px] sm:text-xs text-slate-800 font-bold leading-tight">
           <div>{SCHOOL_INFO.ministry}</div>
           <div>{SCHOOL_INFO.ministryOfEdu}</div>
           <div>{SCHOOL_INFO.directorate}</div>
@@ -27,30 +31,34 @@ export const OfficialDocumentHeader: React.FC<OfficialDocumentHeaderProps> = ({
 
         {/* Center: Logo & Official Title */}
         <div className="flex flex-col items-center text-center">
-          <SchoolLogo size="lg" className="mb-2" />
-          <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight leading-snug">
+          <SchoolLogo size="md" className="mb-1" />
+          <h2 className="text-sm sm:text-lg font-black text-slate-900 tracking-tight leading-tight">
             {title}
           </h2>
-          <div className="text-xs font-bold text-slate-600 mt-0.5">
+          <div className="text-[11px] sm:text-xs font-bold text-slate-600 mt-0.5">
             {subTitle}
           </div>
-          {metadata && <div className="mt-2">{metadata}</div>}
+          {metadata && <div className="mt-1">{metadata}</div>}
         </div>
 
-        {/* Left: Administrative Meta */}
-        <div className="flex flex-col items-end text-left text-[11px] sm:text-xs text-slate-700 font-bold space-y-1 sm:space-y-1.5">
-          <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">الرقم:</span>
-            <span>....................</span>
+        {/* Left: Official Approval Date & Left Content / Summary */}
+        <div className="flex flex-col items-end text-left text-[11px] sm:text-xs text-slate-700 font-semibold space-y-1">
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-right shadow-2xs">
+            <span className="text-[10px] text-slate-500 font-bold ml-1.5">تاريخ الاعتماد:</span>
+            <span className="font-extrabold text-slate-900 text-xs" dir="rtl">
+              {approvalDate ||
+                new Date().toLocaleDateString('ar-SA', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+            </span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">التاريخ:</span>
-            <span>&rlm;1448 / &nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp; هـ</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">المشفوعات:</span>
-            <span>....................</span>
-          </div>
+          {leftContent && (
+            <div className="flex justify-end mt-0.5">
+              {leftContent}
+            </div>
+          )}
         </div>
       </div>
     </div>

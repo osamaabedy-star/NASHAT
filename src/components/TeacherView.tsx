@@ -1,7 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import {
-  ALL_TEACHERS,
-  getTeacherSessions,
   getActivityBadgeColor,
   WEEKS_LIST,
 } from '../data/scheduleData';
@@ -10,12 +8,18 @@ import { OfficialDocumentHeader } from './OfficialDocumentHeader';
 import { OfficialSignatures } from './OfficialSignatures';
 import { ScoreBadge } from './ScoreBadge';
 import { NotesCell } from './NotesCell';
+import { QuickEditSessionModal } from './QuickEditSessionModal';
+import { useScheduleData } from '../hooks/useScheduleData';
+import { useAdminAuth } from '../hooks/useAdminAuth';
+import { getAllUniqueTeachers } from '../services/scheduleService';
+import { ScheduleSession } from '../types';
 import {
   User,
   Search,
   Printer,
   Download,
   Loader2,
+  Edit3,
 } from 'lucide-react';
 
 interface TeacherViewProps {
@@ -23,25 +27,32 @@ interface TeacherViewProps {
 }
 
 export const TeacherView: React.FC<TeacherViewProps> = ({
-  initialTeacher = ALL_TEACHERS[0],
+  initialTeacher,
 }) => {
-  const [selectedTeacher, setSelectedTeacher] = useState<string>(initialTeacher);
+  const schedule = useScheduleData();
+  const { isAdmin } = useAdminAuth();
+
+  const allTeachers = useMemo(() => getAllUniqueTeachers(schedule), [schedule]);
+  const [selectedTeacher, setSelectedTeacher] = useState<string>(
+    initialTeacher || allTeachers[0] || ''
+  );
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedWeekFilter, setSelectedWeekFilter] = useState<number | 'all'>('all');
   const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [editingSession, setEditingSession] = useState<ScheduleSession | null>(null);
 
   // Filter teachers list by search query
   const filteredTeachers = useMemo(() => {
-    if (!searchQuery.trim()) return ALL_TEACHERS;
-    return ALL_TEACHERS.filter((t) =>
+    if (!searchQuery.trim()) return allTeachers;
+    return allTeachers.filter((t) =>
       t.toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
-  }, [searchQuery]);
+  }, [allTeachers, searchQuery]);
 
-  // All sessions for the chosen teacher
+  // All sessions for the chosen teacher from dynamic schedule
   const allSessions = useMemo(() => {
-    return getTeacherSessions(selectedTeacher);
-  }, [selectedTeacher]);
+    return schedule.filter((s) => s.teacher.trim() === selectedTeacher.trim());
+  }, [schedule, selectedTeacher]);
 
   // Filtered sessions (by week if selected)
   const displayedSessions = useMemo(() => {
@@ -100,7 +111,7 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
                   }}
                   className="w-full bg-slate-50 border border-slate-300 focus:border-slate-800 rounded-lg px-3 py-2 text-slate-900 font-bold text-sm transition-all appearance-none cursor-pointer pr-3 pl-9"
                 >
-                  {ALL_TEACHERS.map((teacher) => (
+                  {allTeachers.map((teacher) => (
                     <option key={teacher} value={teacher}>
                       الأستاذ / {teacher}
                     </option>
@@ -190,11 +201,11 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
         {/* Ministerial Header */}
         <OfficialDocumentHeader
           title={`جدول حصص النشاط الطلابي — الأستاذ / ${selectedTeacher}`}
-          metadata={
-            <div className="inline-flex items-center gap-4 text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-md border border-slate-200">
-              <span>إجمالي الحصص: <b className="text-slate-900">{allSessions.length}</b> حصة</span>
+          leftContent={
+            <div className="inline-flex items-center gap-2 text-[10.5px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200 whitespace-nowrap">
+              <span>إجمالي الحصص: <b className="text-slate-900">{allSessions.length}</b></span>
               <span>•</span>
-              <span>الفصول المسندة: <b className="text-slate-900">{distinctClasses.join('، ')}</b></span>
+              <span>الفصول: <b className="text-slate-900">{distinctClasses.join('، ')}</b></span>
             </div>
           }
         />
@@ -305,7 +316,19 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
 
                     {/* Notes */}
                     <td className="py-2.5 px-3">
-                      <NotesCell session={session} />
+                      <div className="flex items-center justify-between gap-2">
+                        <NotesCell session={session} />
+                        {isAdmin && (
+                          <button
+                            onClick={() => setEditingSession(session)}
+                            className="p-1 rounded bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-bold flex items-center gap-1 transition-colors shrink-0 no-print cursor-pointer"
+                            title="تعديل الحصة أو البرنامج أو نقلها"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                            <span>تعديل</span>
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -317,6 +340,13 @@ export const TeacherView: React.FC<TeacherViewProps> = ({
         {/* Official Signatures Block */}
         <OfficialSignatures />
       </div>
+
+      {/* Quick Edit Session Modal */}
+      <QuickEditSessionModal
+        session={editingSession}
+        isOpen={editingSession !== null}
+        onClose={() => setEditingSession(null)}
+      />
     </div>
   );
 };

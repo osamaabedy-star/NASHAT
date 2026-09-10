@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import {
   CLASSES_LIST,
-  getClassSessions,
   getActivityBadgeColor,
 } from '../data/scheduleData';
 import { exportElementAsImage } from '../utils/exportImage';
@@ -9,11 +8,16 @@ import { OfficialDocumentHeader } from './OfficialDocumentHeader';
 import { OfficialSignatures } from './OfficialSignatures';
 import { ScoreBadge } from './ScoreBadge';
 import { NotesCell } from './NotesCell';
+import { QuickEditSessionModal } from './QuickEditSessionModal';
+import { useScheduleData } from '../hooks/useScheduleData';
+import { useAdminAuth } from '../hooks/useAdminAuth';
+import { ScheduleSession } from '../types';
 import {
   School,
   Printer,
   Download,
   Loader2,
+  Edit3,
 } from 'lucide-react';
 
 interface ClassViewProps {
@@ -21,13 +25,17 @@ interface ClassViewProps {
 }
 
 export const ClassView: React.FC<ClassViewProps> = ({ onSelectTeacher }) => {
+  const schedule = useScheduleData();
+  const { isAdmin } = useAdminAuth();
+
   const [selectedClass, setSelectedClass] = useState<string>(CLASSES_LIST[0]);
   const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [editingSession, setEditingSession] = useState<ScheduleSession | null>(null);
 
-  // Sessions for this class
+  // Sessions for this class from dynamic schedule
   const sessions = useMemo(() => {
-    return getClassSessions(selectedClass);
-  }, [selectedClass]);
+    return schedule.filter((s) => s.gradeClass === selectedClass);
+  }, [schedule, selectedClass]);
 
   const handlePrint = () => {
     window.print();
@@ -136,11 +144,11 @@ export const ClassView: React.FC<ClassViewProps> = ({ onSelectTeacher }) => {
         {/* Ministerial Header */}
         <OfficialDocumentHeader
           title={`جدول حصص النشاط الطلابي — فصل ${selectedClass}`}
-          metadata={
-            <div className="inline-flex items-center gap-4 text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-md border border-slate-200">
-              <span>إجمالي حصص النشاط: <b className="text-slate-900">{sessions.length}</b> حصة</span>
+          leftContent={
+            <div className="inline-flex items-center gap-2 text-[10.5px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200 whitespace-nowrap">
+              <span>إجمالي الحصص: <b className="text-slate-900">{sessions.length}</b></span>
               <span>•</span>
-              <span>المعدل الأسبوعي: <b className="text-slate-900">حصة أسبوعياً</b></span>
+              <span>المعدل: <b className="text-slate-900">حصة أسبوعياً</b></span>
             </div>
           }
         />
@@ -209,7 +217,19 @@ export const ClassView: React.FC<ClassViewProps> = ({ onSelectTeacher }) => {
 
                     {/* Notes */}
                     <td className="py-2.5 px-3">
-                      <NotesCell session={session} />
+                      <div className="flex items-center justify-between gap-2">
+                        <NotesCell session={session} />
+                        {isAdmin && (
+                          <button
+                            onClick={() => setEditingSession(session)}
+                            className="p-1 rounded bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-bold flex items-center gap-1 transition-colors shrink-0 no-print cursor-pointer"
+                            title="تعديل الحصة أو البرنامج أو المعلم"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                            <span>تعديل</span>
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -221,6 +241,13 @@ export const ClassView: React.FC<ClassViewProps> = ({ onSelectTeacher }) => {
         {/* Official Signatures */}
         <OfficialSignatures />
       </div>
+
+      {/* Quick Edit Session Modal */}
+      <QuickEditSessionModal
+        session={editingSession}
+        isOpen={editingSession !== null}
+        onClose={() => setEditingSession(null)}
+      />
     </div>
   );
 };
