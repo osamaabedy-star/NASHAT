@@ -1,21 +1,548 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>جدول حصص النشاط الطلابي | العام الدراسي 1448هـ | ابتدائية رياض الإبداع</title>
-    <meta name="description" content="منصة خطة حصص النشاط الطلابي لابتدائية رياض الإبداع للعام الدراسي 1448هـ - جداول مخصصة للمعلمين والفصول والخطة الأسبوعية المعتمدة" />
-    <meta property="og:title" content="جدول حصص النشاط الطلابي | العام الدراسي 1448هـ | ابتدائية رياض الإبداع" />
-    <meta property="og:description" content="منصة خطة حصص النشاط الطلابي لابتدائية رياض الإبداع للعام الدراسي 1448هـ - جداول مخصصة للمعلمين والفصول والخطة الأسبوعية المعتمدة" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" crossorigin="anonymous">
-  </head>
-  <body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-emerald-500 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d3f9e">
+<title>تدريب مقياس موهبة</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--b:#1d3f9e;--b2:#14296b;--b3:#e8eefc;--g:#c9a227;--g2:#9a7a14;--gl:#fbf4d9;--tx:#141c3a;--mu:#5b6482;--bd:#dfe4f1;--ok:#0f7a55;--okb:#e7f6ef;--no:#b4323a;--nob:#fcecec;--a:#1d3f9e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:#fff;color:var(--tx);font-family:"Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;font-weight:500;line-height:1.8;overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+svg{display:block;max-width:100%}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px}
+.tops{position:fixed;z-index:60;left:10px;top:calc(8px + env(safe-area-inset-top,0px));display:flex;gap:6px}
+.printbtn{background:var(--g);color:#2a1f00;font-weight:700;font-size:.78rem;padding:5px 12px;border-radius:99px;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+/* cover */
+.cover{position:relative;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 16px),linear-gradient(135deg,var(--b2),var(--b));color:#fff;padding:calc(34px + env(safe-area-inset-top,0px)) 16px 52px;overflow:hidden}
+.cover::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1px;height:30px;background:#fff;border-radius:50% 50% 0 0/100% 100% 0 0}
+.cin{max-width:820px;margin:auto;display:flex;align-items:center;gap:14px}
+.lg{width:62px;height:62px;border-radius:16px;background:#fff;display:grid;place-items:center;font-size:1.9rem;overflow:hidden;flex:0 0 auto;border:2px solid var(--g)}
+.lg img{width:100%;height:100%;object-fit:contain}
+.cover h1{margin:0;font-size:1.3rem;line-height:1.4}
+.cover small{display:block;opacity:.85;font-size:.82rem}
+.badge{display:inline-block;background:var(--g);color:#2a1f00;font-weight:700;font-size:.72rem;padding:1px 12px;border-radius:99px;margin-bottom:3px}
+/* sections */
+.sec{display:flex;align-items:center;gap:8px;margin:20px 0 10px;font-size:1rem;font-weight:700;color:var(--b2)}
+.sec::before{content:"";width:5px;height:20px;border-radius:3px;background:var(--g)}
+.card{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:14px;border-right:4px solid var(--b)}
+.form{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}.form select{font-size:.9rem}
+.form .full{grid-column:1/-1}
+.form label{display:block;font-size:.78rem;color:var(--mu);font-weight:700}
+.form input[type=text],.form select{width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:11px;background:#fff}
+.form input:focus,.form select:focus{outline:none;border-color:var(--b)}
 
+.lrow{display:flex;align-items:center;gap:10px}
+.lrow img{width:44px;height:44px;object-fit:contain;border:1px solid var(--bd);border-radius:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:12px;font-weight:700;font-size:.88rem;background:var(--b);color:#fff;transition:.15s}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:var(--g);color:#2a1f00}
+.btn.light{background:var(--b3);color:var(--b)}
+.btn.big{padding:12px 20px;width:100%;font-size:.95rem}
+.sum{display:flex;align-items:center;gap:10px}
+.sum b{flex:1}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:12px}
+.tile{background:#fff;border:1px solid var(--bd);border-top:5px solid var(--a);border-radius:18px;padding:18px 14px 14px;box-shadow:0 4px 14px rgba(20,41,107,.08);display:flex;flex-direction:column;gap:8px}
+.th{display:flex;align-items:center;gap:9px}
+.th .ic{width:50px;height:50px;border-radius:13px;background:var(--a);display:grid;place-items:center;font-size:1.5rem;flex:0 0 auto}
+.th b{display:block;font-size:1.12rem;line-height:1.3;color:var(--a)}
+.th small{display:block;color:var(--mu);font-size:.74rem;line-height:1.4}
+.pr{font-size:.76rem;color:var(--mu)}
+.pr em{font-style:normal;font-weight:700;color:var(--a)}
+.mb{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:3px 0}
+.mb i{display:block;height:100%;background:var(--a);border-radius:9px}
+.tb{display:grid;gap:6px;margin-top:2px}
+.tb button{font-size:.84rem;font-weight:700;padding:9px 0;border-radius:12px;background:var(--b3);color:var(--a)}
+.tb button:last-child{background:var(--a);color:#fff}
+.foot{margin:28px 0 20px;padding-top:12px;border-top:2px solid var(--g);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.76rem;color:var(--mu)}
+.map{display:flex;flex-direction:column;align-items:center;gap:6px;margin:8px 0}
+.map .ct{background:var(--a);color:#fff;border-radius:99px;padding:3px 20px;font-weight:700}
+.map .ln{width:2px;height:12px;background:var(--g)}
+.map .br{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.map .br span{border:1.5px solid var(--a);color:var(--a);border-radius:10px;padding:1px 11px;font-size:.82rem;font-weight:700;background:#fff}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--bd)}
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem;min-width:420px}
+.tbl th{background:var(--a);color:#fff;padding:6px 8px;text-align:start}
+.tbl td{padding:6px 8px;border-top:1px solid var(--bd);vertical-align:top}
+.tbl td:first-child{font-weight:700;color:var(--a);background:var(--gl);white-space:nowrap}
+.par{border:1px solid var(--bd);border-right:4px solid var(--a);border-radius:12px;padding:10px 14px;background:#f6f8fe;font-size:.88rem}
+/* overlay */
+.ov{position:fixed;inset:0;z-index:100;background:#fff;transform:translateY(100%);visibility:hidden;transition:transform .3s,visibility 0s .3s}
+.ov.open{transform:none;visibility:visible;transition:transform .3s}
+.sh{display:flex;flex-direction:column;height:100%}
+.bar{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:var(--b);color:#fff}
+.bar button{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.15);color:#fff;font-size:1rem}
+.bar b{flex:1}
+.bar span{background:var(--g);color:#2a1f00;font-weight:700;font-size:.78rem;padding:2px 10px;border-radius:9px}
+.pb{height:4px;background:var(--bd)}.pb i{display:block;height:100%;background:var(--g);transition:width .3s}
+.body{flex:1;overflow-y:auto;padding:14px 14px calc(30px + env(safe-area-inset-bottom,0px))}
+.in{max-width:720px;margin:auto}
+.hd{background:var(--a);color:#fff;border-radius:12px;padding:3px 14px;font-weight:700;font-size:.9rem;margin:16px 0 8px}
+.box{border:1px solid var(--bd);border-right:4px solid var(--g);border-radius:12px;padding:10px 14px;background:var(--gl);font-size:.9rem}
+.tips{display:grid;gap:8px}
+.tip{display:flex;gap:10px;border:1px solid var(--bd);border-radius:12px;padding:8px 12px;font-size:.88rem}
+.tip i{font-style:normal;width:24px;height:24px;border-radius:8px;background:var(--b3);color:var(--a);display:grid;place-items:center;font-weight:700;font-size:.8rem;flex:0 0 auto}
+.fig{background:#f6f8fe;border:1px solid var(--bd);border-radius:14px;padding:10px;margin:12px 0;display:flex;justify-content:center}
+.fig svg{width:100%;max-width:440px;height:auto}
+.fig text{font-family:inherit}
+.lab{margin:10px 0}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.ctl button{font-size:.78rem;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--b3);color:var(--b)}
+.ctl button.on{background:var(--b);color:#fff}
+.ltxt{font-size:.84rem;color:var(--mu);text-align:center;min-height:1.8em}
+input[type=range]{width:100%;accent-color:var(--b)}
+.qhd{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.lv{font-size:.72rem;font-weight:700;padding:1px 10px;border-radius:8px;background:var(--b3);color:var(--b)}
+.lv.l2{background:var(--gl);color:var(--g2)}.lv.l3{background:var(--nob);color:var(--no)}
+.qt{font-size:1.02rem;font-weight:700;line-height:1.9}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{display:flex;align-items:center;gap:10px;text-align:start;padding:10px 12px;border:1.5px solid var(--bd);border-radius:13px;background:#fff;font-size:.92rem}
+.opt b{width:26px;height:26px;border-radius:8px;background:var(--b3);color:var(--a);display:grid;place-items:center;font-size:.8rem;flex:0 0 auto}
+.opt.ok{border-color:var(--ok);background:var(--okb)}.opt.ok b{background:var(--ok);color:#fff}
+.opt.no{border-color:var(--no);background:var(--nob)}.opt.no b{background:var(--no);color:#fff}
+.fb{margin-top:12px;padding:10px 14px;border-radius:13px;font-size:.88rem}
+.fb.ok{background:var(--okb);border:1px solid var(--ok)}.fb.no{background:var(--nob);border:1px solid var(--no)}
+.fb p{margin:0 0 2px;font-weight:700}
+.res{text-align:center}.res .pc{font-size:3rem;font-weight:700;color:var(--a);line-height:1.2}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.st div{border:1px solid var(--bd);border-radius:12px;padding:6px}.st b{display:block;color:var(--a)}
+.rv{text-align:start;border-top:1px solid var(--bd);padding:8px 0;font-size:.85rem}
+@media print{.printbtn,.tb,.ctl{display:none}.cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+.exm{border:1.5px dashed var(--a);border-radius:16px;padding:12px 14px;background:#fff}
+.exm .q{font-weight:700;margin-bottom:8px}
+.exm .ans{margin-top:8px;background:var(--okb);border:1px solid var(--ok);border-radius:11px;padding:6px 12px;font-weight:700;color:var(--ok)}
+.cf{position:fixed;inset:0;z-index:300;pointer-events:none;overflow:hidden}
+.cf i{position:absolute;width:9px;height:14px;border-radius:2px;animation:bm 1.9s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes bm{to{transform:translate(var(--x),calc(var(--y) + 340px)) rotate(var(--r));opacity:0}}
+.rp{max-width:760px;margin:auto}
+.rph{text-align:center;border:2px solid var(--g);border-radius:18px;padding:14px;background:linear-gradient(180deg,#fff,var(--gl))}
+.rph h2{margin:2px 0;color:var(--b2)}.rph small{color:var(--mu)}
+.rid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;font-size:.85rem}
+.rid div{border:1px solid var(--bd);border-radius:11px;padding:5px 8px;background:#fff}.rid b{display:block;color:var(--b);font-size:.72rem}
+.big{display:flex;align-items:center;gap:14px;border:1px solid var(--bd);border-radius:16px;padding:12px;margin:10px 0}
+.big svg{width:104px;height:104px;flex:0 0 auto}
+.rbar{height:9px;background:var(--bd);border-radius:9px;overflow:hidden;min-width:70px}.rbar i{display:block;height:100%}
+.lst{margin:4px 0;padding:0 18px;font-size:.88rem}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:26px;font-size:.84rem;text-align:center}.sg div{border-top:1.5px solid var(--mu);padding-top:4px}
+.bar button.sn{font-size:.95rem}
+@media print{body.rp #app,body.rp .tops,.bar,.noprint{display:none!important}body.rp{overflow:visible!important}body.rp .ov{position:static!important;transform:none!important;visibility:visible!important}body.rp .sh{height:auto!important}body.rp .body{overflow:visible!important;padding:0}.rph,.big,.tbl th,.hd,.rbar i{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="tops"><button class="printbtn" onclick="window.print()">🖨 طباعة / PDF</button><button class="printbtn" id="sb" onclick="tgS(this)">🔊</button></div>
+<div id="app"></div>
+<div class="ov" id="ov"><div class="sh" id="sh"></div></div>
+
+<script>
+/* ================= أدوات الرسم ================= */
+const PI=Math.PI,M=2.2,H=6,GC=["#2c52b8","#7f9ae0"];
+const MU="#5b6482",B="#1d3f9e",G="#c9a227",NO="#b4323a",OK="#0f7a55";
+const svg=(vb,s)=>`<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+const tx=(x,y,s,c,z,w)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${z||12}" font-weight="${w||600}" fill="${c||MU}">${s}</text>`;
+
+/* ترس بأسنان حقيقية: T عدد الأسنان */
+function gp(T,r){let d="";const p=2*PI/T,ri=r-H/2,ro=r+H/2;
+  for(let k=0;k<T;k++){[[-.3,ri],[-.17,ro],[.17,ro],[.3,ri]].forEach((q,j)=>{const t=k*p+q[0]*p;d+=(k+j?"L":"M")+(q[1]*Math.cos(t)).toFixed(1)+" "+(q[1]*Math.sin(t)).toFixed(1)})}
+  return d+"Z"}
+function gearG(id,x,y,T,deg,i){const r=T*M;
+  return `<g id="${id}" transform="translate(${x} ${y}) rotate(${deg})"><path d="${gp(T,r)}" fill="${GC[i%2]}" stroke="#14296b" stroke-width="1.5" stroke-linejoin="round"/><circle r="${r*.58}" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/><circle r="${r*.2}" fill="#fff" stroke="#14296b" stroke-width="1.5"/><circle cx="${r*.75}" r="3.4" fill="${G}"/></g>`}
+/* زوايا التروس المتلامسة (تطابق الأسنان) */
+function meshAng(Ts,t){const a=[t];for(let i=1;i<Ts.length;i++)a.push(PI-PI/Ts[i]-(Ts[i-1]/Ts[i])*a[i-1]);return a.map(x=>x*180/PI)}
+/* سير حول ترسين */
+function belt(x1,r1,x2,r2,y,cr){r1+=3;r2+=3;const d=x2-x1,f=Math.asin(((cr?r1+r2:r1-r2))/d),s=Math.sin(f),c=Math.cos(f),n=v=>v.toFixed(1);
+  if(!cr){const L1=f>0?1:0,L2=f<0?1:0;
+    return `M${n(x1+r1*s)} ${n(y-r1*c)}L${n(x2+r2*s)} ${n(y-r2*c)}A${r2} ${r2} 0 ${L2} 1 ${n(x2+r2*s)} ${n(y+r2*c)}L${n(x1+r1*s)} ${n(y+r1*c)}A${r1} ${r1} 0 ${L1} 1 ${n(x1+r1*s)} ${n(y-r1*c)}Z`}
+  return `M${n(x1+r1*s)} ${n(y-r1*c)}L${n(x2-r2*s)} ${n(y+r2*c)}A${r2} ${r2} 0 1 0 ${n(x2-r2*s)} ${n(y-r2*c)}L${n(x1+r1*s)} ${n(y+r1*c)}A${r1} ${r1} 0 1 1 ${n(x1+r1*s)} ${n(y-r1*c)}Z`}
+/* شكل ثابت للأسئلة: Ts أسنان، labels، opt: {belt:'open'|'cross'} */
+function GS(Ts,lb,o){o=o||{};const rs=Ts.map(t=>t*M),y=20+Math.max(...rs);let xs=[],x=14+rs[0];xs.push(x);
+  for(let i=1;i<Ts.length;i++){x+=rs[i-1]+rs[i]+(o.belt?60:0);xs.push(x)}
+  const W=x+rs[rs.length-1]+14,Hh=2*y+8;
+  let s=o.belt?`<path d="${belt(xs[0],rs[0],xs[1],rs[1],y,o.belt==="cross")}" fill="none" stroke="#6b7694" stroke-width="5" stroke-linejoin="round"/><path d="${belt(xs[0],rs[0],xs[1],rs[1],y,o.belt==="cross")}" fill="none" stroke="${G}" stroke-width="1.5" stroke-dasharray="7 6"/>`:"";
+  const an=o.belt?Ts.map(()=>0):meshAng(Ts,0);
+  Ts.forEach((t,i)=>{s+=gearG("",xs[i],y,t,an[i],i)+tx(xs[i],Hh-6,lb[i],B,13,700)});
+  if(o.spin)s+=tx(xs[0],14,o.spin,G,20,700);
+  return svg(`0 0 ${W.toFixed(0)} ${Hh+14}`,s)}
+
+const FIG={};
+FIG.gears2=GS([14,14],["A","B"],{spin:"↻"});
+FIG.gears3=GS([14,14,14],["A","B","C"],{spin:"↻"});
+FIG.gearsTrain=GS([10,20],["A (١٠ أسنان)","B (٢٠ سنًّا)"],{spin:"↻"});
+FIG.beltOpen=GS([12,12],["A","B"],{belt:"open",spin:"↻"});
+FIG.beltCross=GS([12,12],["A","B"],{belt:"cross",spin:"↻"});
+FIG.beltSize=GS([10,30],["A (١٠ أسنان)","B (٣٠ سنًّا)"],{belt:"open",spin:"↻"});
+
+FIG.scissors=svg("0 0 400 210",
+ '<g stroke="#14296b" stroke-width="2" stroke-linejoin="round"><path d="M385 78L200 112L120 140L110 128L195 98L385 62Z" fill="#cfd8ea"/><path d="M385 146L200 112L120 84L110 96L195 126L385 162Z" fill="#aebbd6"/></g>'+
+ '<circle cx="78" cy="150" r="26" fill="none" stroke="#14296b" stroke-width="9"/><circle cx="78" cy="74" r="26" fill="none" stroke="#c9a227" stroke-width="9"/>'+
+ '<circle cx="200" cy="112" r="8" fill="#c9a227" stroke="#14296b" stroke-width="2"/>'+
+ tx(200,140,"المسمار: نقطة الارتكاز",MU,12)+tx(330,40,"طرف الشفرتين",MU,12)+tx(90,200,"المقبضان",MU,12)+
+ '<line x1="262" y1="104" x2="262" y2="120" stroke="#b4323a" stroke-width="3"/>'+tx(262,98,"ورقة سميكة؟",NO,11));
+
+FIG.leverA=svg("0 0 400 200",
+ '<line x1="15" y1="172" x2="385" y2="172" stroke="#dfe4f1" stroke-width="5" stroke-linecap="round"/>'+
+ '<polygon points="200,106 172,172 228,172" fill="#e8eefc" stroke="#1d3f9e" stroke-width="2.2" stroke-linejoin="round"/>'+
+ '<rect x="38" y="92" width="324" height="14" rx="6" fill="#2c52b8"/>'+
+ '<rect x="50" y="46" width="54" height="46" rx="6" fill="#8b94a8" stroke="#5b6482" stroke-width="2"/>'+tx(77,76,"الحمل","#fff",12)+
+ '<line x1="248" y1="50" x2="248" y2="90" stroke="#b4323a" stroke-width="3" stroke-dasharray="5 4"/><polygon points="248,92 242,80 254,80" fill="#b4323a"/>'+tx(248,42,"(١)",NO,12)+
+ '<line x1="334" y1="50" x2="334" y2="90" stroke="#0f7a55" stroke-width="3" stroke-dasharray="5 4"/><polygon points="334,92 328,80 340,80" fill="#0f7a55"/>'+tx(334,42,"(٢)",OK,12)+
+ tx(200,192,"نقطة الارتكاز",MU,12));
+FIG.leverC=svg("0 0 420 210",
+ '<line x1="15" y1="178" x2="405" y2="178" stroke="#dfe4f1" stroke-width="5" stroke-linecap="round"/>'+
+ '<polygon points="90,100 62,178 118,178" fill="#e8eefc" stroke="#1d3f9e" stroke-width="2.2" stroke-linejoin="round"/>'+
+ '<rect x="30" y="86" width="360" height="14" rx="6" fill="#2c52b8"/>'+
+ '<rect x="128" y="38" width="48" height="48" rx="6" fill="#8b94a8" stroke="#5b6482" stroke-width="2"/>'+tx(152,68,"٦٠ كجم","#fff",11)+
+ '<line x1="280" y1="46" x2="280" y2="84" stroke="#0f7a55" stroke-width="3"/><polygon points="280,86 273,72 287,72" fill="#0f7a55"/>'+tx(280,38,"؟",OK,16,800)+
+ '<line x1="90" y1="196" x2="152" y2="196" stroke="#5b6482" stroke-width="1.6"/>'+tx(121,208,"١ م",MU,11)+
+ '<line x1="90" y1="160" x2="280" y2="160" stroke="#0f7a55" stroke-width="1.6" stroke-dasharray="4 3"/>'+tx(185,154,"٣ م",OK,11));
+
+const PUL='<defs><radialGradient id="pg" cx=".4" cy=".35"><stop offset="0" stop-color="#e8eefc"/><stop offset="1" stop-color="#7f9ae0"/></radialGradient></defs>';
+const CEIL='<rect x="30" y="14" width="260" height="14" fill="#8b94a8"/><path d="M30 28l-10 0M70 28l-8 8M110 28l-8 8M150 28l-8 8M190 28l-8 8M230 28l-8 8M270 28l-8 8" stroke="#5b6482" stroke-width="2"/>';
+const wheel=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#pg)" stroke="#14296b" stroke-width="3"/><circle cx="${x}" cy="${y}" r="${r*.62}" fill="none" stroke="#14296b" stroke-width="1.5"/><circle cx="${x}" cy="${y}" r="4" fill="${G}" stroke="#14296b" stroke-width="1.5"/>`;
+const wt=(x,y,w,t)=>`<rect x="${x}" y="${y}" width="${w}" height="46" rx="6" fill="#8b94a8" stroke="#5b6482" stroke-width="2"/>`+tx(x+w/2,y+28,t,"#fff",12);
+FIG.pulleyFixed=svg("0 0 320 250",PUL+CEIL+
+ '<line x1="160" y1="28" x2="160" y2="68" stroke="#5b6482" stroke-width="4"/>'+wheel(160,100,32)+
+ '<path d="M128 100V170M192 100V200" stroke="#6b5b2a" stroke-width="3.5" fill="none"/>'+
+ wt(98,170,60,"١٠ كجم")+'<line x1="192" y1="170" x2="192" y2="214" stroke="#0f7a55" stroke-width="3"/><polygon points="192,222 185,208 199,208" fill="#0f7a55"/>'+tx(245,205,"قوة السحب",OK,11));
+FIG.pulleyMovable=svg("0 0 320 260",PUL+CEIL+
+ '<line x1="110" y1="28" x2="110" y2="140" stroke="#6b5b2a" stroke-width="3.5"/>'+
+ '<path d="M110 140A34 34 0 0 0 178 140" fill="none" stroke="#6b5b2a" stroke-width="3.5"/>'+
+ '<line x1="178" y1="140" x2="178" y2="70" stroke="#6b5b2a" stroke-width="3.5"/>'+wheel(144,140,34)+
+ '<line x1="144" y1="174" x2="144" y2="192" stroke="#5b6482" stroke-width="4"/>'+wt(114,192,60,"١٠ كجم")+
+ '<line x1="178" y1="100" x2="178" y2="56" stroke="#0f7a55" stroke-width="3"/><polygon points="178,46 171,60 185,60" fill="#0f7a55"/>'+tx(232,70,"قوة السحب",OK,11));
+FIG.arrowUp=svg("0 0 240 190",'<polygon points="120,25 175,100 143,100 143,160 97,160 97,100 65,100" fill="#1d3f9e"/>'+tx(120,184,"الاتجاه الحالي"));
+FIG.dotSquare=svg("0 0 240 190",'<rect x="55" y="25" width="120" height="120" rx="6" fill="#e8eefc" stroke="#1d3f9e" stroke-width="2.4"/><circle cx="160" cy="40" r="9" fill="#b4323a"/>'+tx(115,172,"النقطة في الزاوية العليا اليمنى"));
+FIG.netCube=svg("0 0 300 205",'<g stroke="#1d3f9e" stroke-width="2" fill="#e8eefc"><rect x="60" y="15" width="55" height="55"/><rect x="60" y="70" width="55" height="55"/><rect x="5" y="70" width="55" height="55"/><rect x="115" y="70" width="55" height="55"/><rect x="170" y="70" width="55" height="55"/><rect x="60" y="125" width="55" height="55"/></g>'+tx(150,198,"شبكة مفرودة"));
+FIG.fold2=svg("0 0 360 180",'<g stroke="#1d3f9e" stroke-width="2" fill="#e8eefc"><rect x="25" y="30" width="90" height="90" rx="4"/><line x1="70" y1="30" x2="70" y2="120" stroke-dasharray="5 4"/><rect x="140" y="30" width="45" height="90" rx="4"/><rect x="215" y="30" width="45" height="90" rx="4"/><line x1="237" y1="30" x2="237" y2="120" stroke-dasharray="5 4"/><rect x="290" y="30" width="22" height="45" rx="4"/></g><circle cx="301" cy="52" r="4.5" fill="#b4323a"/>'+tx(70,150,"١) ورقة",MU,11)+tx(162,150,"٢) طي",MU,11)+tx(237,150,"٣) طي ثانٍ",MU,11)+tx(301,150,"٤) ثقب",MU,11));
+function iso(list,s,ox,oy){const P=(x,y,z)=>[ox+(x-y)*s*.866,oy+(x+y)*s*.5-z*s];let o="";
+ list.slice().sort((a,b)=>a[0]+a[1]+a[2]-b[0]-b[1]-b[2]).forEach(c=>{const[x,y]=P(...c),h=s*.866,q=(a,b)=>(x+a)+","+(y+b),pl=(pts,f,op)=>`<polygon points="${pts.join(" ")}" fill="${f}" stroke="#1d3f9e" stroke-width="1.6" stroke-linejoin="round" ${op?'opacity=".72"':''}/>`;
+  o+=pl([q(0,0),q(h,s*.5),q(0,s),q(-h,s*.5)],"#e8eefc")+pl([q(-h,s*.5),q(0,s),q(0,2*s),q(-h,s*1.5)],"#fff")+pl([q(0,s),q(h,s*.5),q(h,s*1.5),q(0,2*s)],"#e8eefc",1)});return o}
+FIG.stack4=svg("0 0 320 220",iso([[0,0,0],[1,0,0],[2,0,0],[1,0,1]],32,140,60));
+FIG.stackL=svg("0 0 320 220",iso([[0,0,0],[1,0,0],[2,0,0],[0,0,1]],32,130,62));
+
+FIG.mirrorE=svg("0 0 340 170",'<line x1="170" y1="12" x2="170" y2="152" stroke="#1d3f9e" stroke-width="3" stroke-dasharray="8 6"/><g fill="#1d3f9e"><rect x="60" y="45" width="70" height="13" rx="2"/><rect x="60" y="45" width="13" height="80" rx="2"/><rect x="60" y="79" width="52" height="13" rx="2"/><rect x="60" y="112" width="70" height="13" rx="2"/></g><g fill="none" stroke="#5b6482" stroke-width="2.4" stroke-dasharray="4 4"><path d="M280 45h-70M280 45v80M280 79h-52M280 112h-70"/></g>'+tx(95,148,"الشكل")+tx(245,148,"أمام المرآة")+tx(170,166,"مرآة",B));
+FIG.cylinder=svg("0 0 260 200",'<ellipse cx="130" cy="50" rx="62" ry="20" fill="#e8eefc" stroke="#1d3f9e" stroke-width="2.2"/><path d="M68 50v95a62 20 0 0 0 124 0v-95" fill="#f6f8fe" stroke="#1d3f9e" stroke-width="2.2"/>'+tx(130,190,"أسطوانة"));
+FIG.prism=svg("0 0 300 200",'<g stroke="#1d3f9e" stroke-width="2.2" stroke-linejoin="round"><polygon points="70,55 170,55 200,85 100,85" fill="#e8eefc"/><polygon points="70,55 100,85 100,155 70,125" fill="#fff"/><polygon points="100,85 200,85 200,155 100,155" fill="#e8eefc"/></g>'+tx(150,185,"منشور قاعدته مربعة"));
+FIG.stack6=svg("0 0 320 230",iso([[0,0,0],[1,0,0],[0,1,0],[1,1,0],[1,1,1],[0,1,1]],32,150,55));
+FIG.stack9=svg("0 0 340 250",iso([[0,0,0],[1,0,0],[0,1,0],[1,1,0],[0,0,1],[1,0,1],[0,1,1],[1,1,1],[0,0,2]],28,160,50));
+FIG.fold3=svg("0 0 340 180",'<g stroke="#1d3f9e" stroke-width="2" fill="#e8eefc"><rect x="20" y="35" width="80" height="80" rx="4"/><line x1="60" y1="35" x2="60" y2="115" stroke-dasharray="5 4"/><rect x="120" y="35" width="40" height="80" rx="4"/><line x1="140" y1="35" x2="140" y2="115" stroke-dasharray="5 4"/><rect x="185" y="35" width="40" height="40" rx="4"/><line x1="205" y1="35" x2="205" y2="75" stroke-dasharray="5 4"/><rect x="250" y="35" width="20" height="20" rx="3"/></g><circle cx="260" cy="45" r="3.6" fill="#b4323a"/>'+tx(60,140,"١",MU,11)+tx(140,140,"٢",MU,11)+tx(205,140,"٣",MU,11)+tx(260,140,"٤",MU,11));
+FIG.density=svg("0 0 340 230",'<path d="M70 50v150h180V50" fill="none" stroke="#1d3f9e" stroke-width="3" stroke-linejoin="round"/><path d="M74 96h172v102H74z" fill="#cfdcf7"/><line x1="74" y1="96" x2="246" y2="96" stroke="#1d3f9e" stroke-width="2"/><rect x="120" y="66" width="66" height="30" rx="4" fill="#c79a5e" stroke="#9a7239" stroke-width="2"/>'+tx(153,86,"خشب","#3b2a12",11)+'<rect x="185" y="172" width="52" height="26" rx="4" fill="#7b8794" stroke="#4a5560" stroke-width="2"/>'+tx(211,190,"حديد","#fff",11)+tx(160,222,"ماء"));
+FIG.circuit=svg("0 0 340 190",'<rect x="45" y="45" width="250" height="110" rx="10" fill="none" stroke="#5b6482" stroke-width="3"/><circle cx="170" cy="45" r="22" fill="#fbf4d9" stroke="#c9a227" stroke-width="2.6"/><path d="M162 37l16 16M178 37l-16 16" stroke="#c9a227" stroke-width="2"/><line x1="110" y1="45" x2="148" y2="45" stroke="#5b6482" stroke-width="3"/><line x1="192" y1="45" x2="228" y2="45" stroke="#5b6482" stroke-width="3"/><line x1="228" y1="45" x2="248" y2="62" stroke="#5b6482" stroke-width="3"/><circle cx="248" cy="62" r="3.5" fill="#5b6482"/><line x1="248" y1="62" x2="278" y2="35" stroke="#5b6482" stroke-width="3"/><circle cx="278" cy="35" r="3.5" fill="#5b6482"/><g stroke="#b4323a" stroke-width="3"><line x1="80" y1="108" x2="112" y2="108"/><line x1="86" y1="124" x2="106" y2="124"/></g>'+tx(96,150,"بطارية")+tx(170,20,"مصباح",B,11)+tx(262,22,"مفتاح (مفتوح)"));
+FIG.thermo=svg("0 0 320 215",'<path d="M90 60h140l-14 120H104z" fill="#f6f8fe" stroke="#1d3f9e" stroke-width="2.6" stroke-linejoin="round"/><path d="M97 105h126l-9 70H106z" fill="#d9a441" opacity=".55"/><rect x="130" y="18" width="9" height="110" rx="4" fill="#9aa4b8" stroke="#6b7686" stroke-width="1.6"/><rect x="176" y="18" width="13" height="110" rx="5" fill="#c08b52" stroke="#8a5e30" stroke-width="1.6"/>'+tx(134,12,"معدن",MU,11)+tx(190,12,"خشب",MU,11)+tx(160,205,"شاي ساخن"));
+FIG.gearsIdler=GS([12,10,12],["A","الوسيط","C"],{spin:"↻"});
+
+/* ================= المحتوى ================= */
+const T=[
+{n:"اللغوي",i:"📖",c:"#1d3f9e",t:"الاستدلال اللغوي وفهم المقروء",s:"علاقات الكلمات وفهم النص",
+ def:"المطلوب منك: أن تكتشف كيف ترتبط الكلمات ببعضها، أو تقرأ نصًا قصيرًا وتجيب منه. لا تحتاج كلمات صعبة، فقط فكّر بهدوء.",
+ map:[["التناظر اللفظي","اكتشف العلاقة بين الكلمتين الأوليين ثم طبّقها","طبيب : مستشفى :: معلم : مدرسة"],["الكلمة الشاذة","ابحث عمّا يجمع ثلاث كلمات","تفاح، موز، جزر ← جزر"],["الترتيب المنطقي","ضع الأسماء على خط من الأكبر للأصغر","سارة > منى > ريم"],["فهم المقروء","ارجع للنص وابحث عن الجواب فيه","نص عن الصبار"]],
+ tips:["اقرأ السؤال مرتين بهدوء.","قل العلاقة بجملة قصيرة: «المعلم يعمل في المدرسة».","جرّب كل خيار وأبعد الخطأ أولًا.","في النص: الجواب موجود داخله، لا تعتمد على ما تعرفه من قبل."],
+ parent:"شجّعوا طفلكم على قراءة قصة قصيرة يوميًا، ثم اسألوه: ما الفكرة الرئيسة؟ وما معنى هذه الكلمة من سياق الجملة؟",
+ ex:{q:"طبيب : مستشفى :: معلم : ؟",st:["نقرأ الزوج الأول: الطبيب يعمل في المستشفى.", "إذن العلاقة هي: «شخص ← المكان الذي يعمل فيه».", "نطبّق العلاقة نفسها: أين يعمل المعلم؟", "يعمل في المدرسة. أما الكتاب والسبورة فليسا مكان عمل، والطالب ليس معلمًا."],a:"مدرسة"},
+ note:"العلاقة أولًا، ثم الخيارات.",
+ qs:[
+ {l:1,q:"طبيب : مستشفى :: معلم : ؟",o:["مدرسة","كتاب","طالب","سبورة"],a:0,e:"العلاقة: العامل ومكان عمله."},
+ {l:1,q:"مقص : قص :: قلم : ؟",o:["ورقة","كتابة","حبر","يد"],a:1,e:"العلاقة: الأداة ووظيفتها الأساسية."},
+ {l:1,q:"أي كلمة لا تنتمي إلى المجموعة؟",o:["تفاح","موز","جزر","برتقال"],a:2,e:"الجزر من الخضار، والباقي فواكه."},
+ {l:1,q:"صفحة : كتاب :: غرفة : ؟",o:["بيت","سرير","باب","نافذة"],a:0,e:"العلاقة: الجزء والكل."},
+ {l:1,q:"سمكة : ماء :: طائر : ؟",o:["شجرة","هواء","عش","سماء"],a:1,e:"العلاقة: الكائن والوسط الذي يتحرك فيه."},
+ {l:1,q:"قلم : كاتب :: فرشاة : ؟",o:["لوحة","رسّام","ألوان","متجر"],a:1,e:"العلاقة: الأداة ومستخدمها."},
+ {l:1,q:"بداية : نهاية :: ولادة : ؟",o:["طفل","موت","حياة","أم"],a:1,e:"العلاقة: تضاد بين طرفي العمر."},
+ {l:1,q:"مدرسة : طلاب :: مصنع : ؟",o:["عمال","آلات","منتج","مدير"],a:0,e:"العلاقة: المكان ومن يعمل فيه."},
+ {l:2,q:"ظلام : نور :: جهل : ؟",o:["علم","كتاب","مدرسة","نسيان"],a:0,e:"العلاقة: تضاد تام."},
+ {l:2,q:"سارة أكبر من منى، ومنى أكبر من ريم، ولبنى أصغر من ريم. من الأصغر؟",o:["سارة","منى","ريم","لبنى"],a:3,e:"سارة > منى > ريم > لبنى."},
+ {l:2,q:"«الجمل يخزّن الدهون في سنامه لا الماء، ويقلّل فقد الماء من جسمه فيتحمّل العطش». ما سبب تحمّله العطش؟",o:["يخزن الماء في سنامه","يقلّل فقد الماء من جسمه","يشرب كثيرًا","يعيش قرب الماء"],a:1,e:"النص ينفي تخزين الماء ويذكر السبب: تقليل فقد الماء."},
+ {l:2,q:"أي كلمة لا تنتمي؟",o:["مربع","مستطيل","معين","دائرة"],a:3,e:"الدائرة ليس لها أضلاع مستقيمة."},
+ {l:2,q:"كلمة «عين» في «عين الماء» و«عين الإنسان» تُسمّى:",o:["مترادفة","متضادة","مشتركة لفظًا مختلفة معنى","خطأ لغويًا"],a:2,e:"هذا هو الاشتراك اللفظي."},
+ {l:2,q:"مؤلف : رواية :: ملحّن : ؟",o:["لحن","آلة","أوركسترا","مسرح"],a:0,e:"العلاقة: المبدع وما ينتجه."},
+ {l:2,q:"معنى كلمة «الوجيز»:",o:["الطويل","المختصر","الغامض","الصعب"],a:1,e:"الوجيز هو المختصر."},
+ {l:2,q:"ضد كلمة «الشحّ»:",o:["البخل","الكرم","الفقر","القلة"],a:1,e:"الشحّ منع العطاء، وضده الكرم."},
+ {l:2,q:"في سباق: خالد قبل فهد، وفهد قبل سامي، وعمر قبل خالد. من الفائز بالأول؟",o:["عمر","خالد","فهد","سامي"],a:0,e:"عمر > خالد > فهد > سامي."},
+ {l:3,q:"«تحوّلت أوراق الصبار إلى أشواك وغُطّيت سيقانه بطبقة شمعية، فقلّ فقد الماء، وصار البناء الضوئي يعتمد على الساق». لماذا يعتمد الصبار على ساقه؟",o:["لأن ساقه أسمك","لأن أوراقه تحولت إلى أشواك فقلّت مساحتها","لأن جذوره عميقة","لأنه يعيش في الظل"],a:1,e:"المساحة الورقية قلّت بتحوّل الأوراق إلى أشواك."},
+ {l:3,q:"«لا يعني الذكاء الاصطناعي أن الآلة تفهم كالإنسان؛ فهو يحلل بيانات هائلة ويستخرج أنماطًا لكنه لا يدرك المعنى». أي عبارة تتفق مع النص؟",o:["الآلة تفهم المعنى كما نفهمه","الآلة تكتشف الأنماط دون إدراك للمعنى","الآلة تخطئ دائمًا","الذكاء الاصطناعي بلا فائدة"],a:1,e:"النص يفرّق بين استخراج الأنماط وإدراك المعنى."},
+ {l:3,q:"بذرة : شجرة : غابة :: طوبة : جدار : ؟",o:["بيت","مدينة","أسمنت","سقف"],a:0,e:"التدرج: الجزء ← الشيء الأكبر ← المنشأة؛ الطوبة تبني الجدار ثم البيت."},
+ {l:3,q:"«من جدّ وجد، ومن زرع حصد». أي معنى يقرّب الفكرة؟",o:["الجهد طريق النتيجة","الحظ أساس النجاح","الصبر وحده يكفي","الزراعة عمل شاق"],a:0,e:"المثل يربط الجهد بالنتيجة."},
+ {l:3,q:"نص عن أهمية الماء وتوزيعه غير العادل بين الدول. ما الفكرة الرئيسة؟",o:["الماء ضروري لكن توزيعه غير عادل","مياه البحر مالحة","المطر يسقط في الشتاء","الأنهار طويلة"],a:0,e:"الفكرة الرئيسة تجمع الضرورة وعدم العدالة."},
+ {l:3,q:"مشرط : جرّاح :: ؟",o:["مطرقة : حداد","قلم : مكتب","كتاب : رف","ماء : كأس"],a:0,e:"العلاقة: أداة ومهنة من يستخدمها."}]},
+{n:"الرياضي",i:"🔢",c:"#0f6b63",t:"الاستدلال الرياضي والمنطقي",s:"أنماط الأعداد وحل المسائل",
+ def:"المطلوب منك: أن تكتشف القاعدة المخفية في الأعداد وتحل مسائل صغيرة بالتفكير، كأنها ألغاز.",
+ map:[["المتتاليات","احسب الفرق بين كل عددين متجاورين","2، 5، 9، 14 ← الفروق 3، 4، 5"],["العدد المجهول","ابدأ من الناتج واعكس العمليات","×4 ثم +6 = 34 ← (34−6)÷4"],["المسائل الكلامية","اكتب المعطيات ثم اختر العملية","ثلث 24 ثم +5"],["العمل المشترك","اجمع ما ينجزه كل شخص في اليوم","١/٦ + ١/٣"]],
+ tips:["انظر إلى الفروق بين الأعداد أولًا.","إن لم تنجح الفروق جرّب الضرب أو القسمة.","اكتب خطوات الحل على ورقة.","راجع إجابتك بتعويضها في السؤال."],
+ parent:"اطلبوا من طفلكم أن يشرح لكم طريقة الحل بصوته، فالشرح يثبّت الفهم. جرّبوا لعبة: أكمل النمط ٢، ٤، ٦ ...",
+ ex:{q:"ما العدد الذي يأتي بعد: ٢، ٤، ٨، ١٦ ؟",st:["نسأل: كيف انتقلنا من عدد إلى الذي بعده؟", "من ٢ إلى ٤ ضربنا في ٢، ومن ٤ إلى ٨ ضربنا في ٢ أيضًا.", "القاعدة: كل عدد هو ضعف العدد الذي قبله.", "نطبّق القاعدة على ١٦: ١٦ × ٢ = ٣٢."],a:"٣٢"},
+ note:"المطلوب طريقة التفكير لا الحساب الطويل.",
+ qs:[
+ {l:1,q:"3، 6، 12، 24، ؟",o:["30","36","48","27"],a:2,e:"كل عدد = السابق × 2 ← 48."},
+ {l:1,q:"2، 5، 9، 14، ؟",o:["18","19","20","21"],a:2,e:"الفروق: 3، 4، 5، فالتالي 6 ← 20."},
+ {l:1,q:"1، 4، 9، 16، ؟",o:["20","24","25","36"],a:2,e:"أعداد مربعة: 1²، 2²، 3²، 4²، فالتالي 5² = 25."},
+ {l:1,q:"لدى خالد 24 قلمًا، أعطى ثلثها لأخيه ثم اشترى 5 أقلام. كم قلمًا صار معه؟",o:["21","19","13","29"],a:0,e:"ثلث 24 = 8 ← 16، ثم 16+5 = 21."},
+ {l:1,q:"20، 17، 14، 11، ؟",o:["7","8","9","10"],a:1,e:"ينقص 3 كل مرة ← 8."},
+ {l:1,q:"إذا كان 3س = 12، فما قيمة س + 5؟",o:["4","7","9","17"],a:2,e:"س = 4، إذن 4+5 = 9."},
+ {l:1,q:"ثمن 4 أقلام 12 ريالًا، فكم ثمن 7 أقلام؟",o:["18","21","24","28"],a:1,e:"ثمن القلم 3 ريالات ← 21."},
+ {l:1,q:"عدد إذا أضفت إليه 7 صار 15، فما هو؟",o:["6","7","8","9"],a:2,e:"15 − 7 = 8."},
+ {l:2,q:"عدد ضُرب في 4 ثم أُضيف إليه 6 فصار 34. ما العدد؟",o:["6","7","8","9"],a:1,e:"نعكس: (34−6)÷4 = 7."},
+ {l:2,q:"1، 2، 6، 24، 120، ؟",o:["240","600","720","840"],a:2,e:"الضرب في 2 ثم 3 ثم 4 ثم 5 ثم 6 ← 720."},
+ {l:2,q:"81، 27، 9، 3، ؟",o:["0","1","2","3"],a:1,e:"القسمة على 3 كل مرة ← 1."},
+ {l:2,q:"100، 96، 88، 76، ؟",o:["60","64","66","68"],a:0,e:"الفروق: 4، 8، 12، 16 ← 60."},
+ {l:2,q:"عددان مجموعهما 20 وفرقهما 4. ما العدد الأكبر؟",o:["8","10","12","14"],a:2,e:"الأكبر = (20+4)÷2 = 12."},
+ {l:2,q:"في صف 40 طالبًا، 60% منهم بنات. كم عدد البنات؟",o:["16","20","24","30"],a:2,e:"40 × 0.60 = 24."},
+ {l:2,q:"متوسط 5 أعداد يساوي 12. ما مجموعها؟",o:["50","55","60","65"],a:2,e:"المجموع = 12 × 5 = 60."},
+ {l:2,q:"2، 3، 5، 8، 13، ؟",o:["18","20","21","26"],a:2,e:"كل حد = مجموع الحدين السابقين ← 8+13 = 21."},
+ {l:2,q:"1، 4، 2، 8، 4، 16، ؟",o:["6","8","20","32"],a:1,e:"نمط متبادل: ×4 ثم ÷2 ← 16÷2 = 8."},
+ {l:2,q:"كم مرة يتقاطع عقربا الساعة خلال 12 ساعة؟",o:["10","11","12","13"],a:1,e:"11 مرة، لأن عقرب الدقائق يسبق عقرب الساعات بدورة كاملة."},
+ {l:3,q:"1، 11، 21، 1211، 111221، ؟",o:["312211","111222","211221","122111"],a:0,e:"كل حد يصف السابق: 111221 = ثلاثة ١، اثنان ٢، واحد ١ ← 312211."},
+ {l:3,q:"2، 12، 36، 80، 150، ؟",o:["210","240","252","270"],a:2,e:"القاعدة ن³+ن²: 216+36 = 252."},
+ {l:3,q:"عامل ينجز عملًا في 6 أيام وآخر في 3 أيام. كم يومًا يحتاجان معًا؟",o:["2","3","4","4.5"],a:0,e:"١/٦ + ١/٣ = ١/٢ ← يومان."},
+ {l:3,q:"مكعب حجمه 64 سم³. ما مساحة سطحه الكلية؟",o:["64","80","96","128"],a:2,e:"الضلع 4 سم، والمساحة = 6 × 16 = 96."},
+ {l:3,q:"عمر أب ثلاثة أضعاف عمر ابنه، وبعد 12 سنة يصبح ضعفه. كم عمر الأب الآن؟",o:["24","30","36","48"],a:2,e:"3س+12 = 2(س+12) ← س = 12، فالأب 36."},
+ {l:3,q:"5، 11، 23، 47، ؟",o:["71","83","94","95"],a:3,e:"كل حد = السابق ×2 + 1 ← 95."},
+ {l:3,q:"ثلث عدد زائد ربعه يساوي 14. ما العدد؟",o:["12","18","24","28"],a:2,e:"س/3 + س/4 = 7س/12 = 14 ← س = 24."},
+ {l:3,q:"صنبور يملأ خزانًا في 4 ساعات، وفتحة تصريف تفرغه في 6 ساعات. إذا فُتحا معًا فكم ساعة يمتلئ الخزان؟",o:["8","10","12","24"],a:2,e:"١/٤ − ١/٦ = ١/١٢ ← 12 ساعة."}]},
+{n:"المكاني",i:"🧩",c:"#2f5d8a",t:"الاستدلال المكاني والتصوّر البصري",s:"الدوران والطي والمجسمات",
+ def:"المطلوب منك: أن تتخيّل شكلًا يدور أو ينطوي أو يُنظر إليه من الأعلى، ثم تختار الجواب الصحيح.",
+ map:[["الدوران","ربع دورة = ٩٠°، وانتبه لاتجاه العقارب","الأعلى ← اليمين مع العقارب"],["الطي والثقب","كل طية تضاعف الطبقات","طيتان = ٤ ثقوب"],["عدّ المكعبات","عُدّ طبقة طبقة، ولا تنسَ المخفية","٣ + ١ = ٤"],["المنظر العلوي","الارتفاع يختفي ويبقى الانتشار","صف من ٣ مكعبات = ٣ مربعات"],["المرايا","تنعكس اليمين واليسار فقط","E ← ∃"]],
+ tips:["ارسم الشكل على ورقة وأدِرها بيدك.","الدوران مع العقارب: الأعلى ← يمين ← أسفل ← يسار.","عند الطي: ضاعف الطبقات في كل طية.","في المكعب الملوّن: الأركان ٨، الأحرف ١٢، الأوجه ٦."],
+ parent:"جرّبوا معًا طيّ ورقة وثقبها ثم فتحها، أو بناء مجسم بمكعبات ثم رسمه من الأعلى. الأيدي تُعلّم العقل.",
+ ex:{q:"ورقة مربعة طويناها نصفين مرتين ثم ثقبناها ثقبًا واحدًا. كم ثقبًا نجد عند فتحها؟",st:["بعد الطية الأولى صارت الورقة طبقتين.", "بعد الطية الثانية تضاعفت الطبقات فصارت أربع طبقات.", "الثقب يخترق الطبقات الأربع معًا.", "عند الفتح نجد ثقبًا في كل طبقة."],a:"٤ ثقوب"},
+ note:"ارسم وأدِر بيدك؛ الخيال وحده قد يخدعك.",
+ qs:[
+ {l:1,q:"السهم يشير إلى الأعلى. إذا دُرِّر ٩٠° عكس عقارب الساعة فإلى أين يشير؟",f:"arrowUp",o:["يمين","يسار","أسفل","يبقى كما هو"],a:1,e:"ربع دورة عكس العقارب ينقل الأعلى إلى اليسار."},
+ {l:1,q:"كم عدد المكعبات في المجسم التالي؟",f:"stack4",o:["٣","٤","٥","٦"],a:1,e:"ثلاثة في الصف السفلي + مكعب أعلى الوسط = ٤."},
+ {l:1,q:"إذا طُويت الشبكة التالية فما المجسم الناتج؟",f:"netCube",o:["أسطوانة","هرم","مكعب","كرة"],a:2,e:"ستة مربعات متساوية تُنتج مكعبًا."},
+ {l:1,q:"كم عدد أحرف المكعب؟",o:["٦","٨","١٢","١٦"],a:2,e:"للمكعب ٦ أوجه و٨ رؤوس و١٢ حرفًا."},
+ {l:1,q:"إذا نظرت إلى الأسطوانة من الأعلى تمامًا فما الشكل الذي تراه؟",f:"cylinder",o:["مستطيل","دائرة","مثلث","مربع"],a:1,e:"قاعدتها دائرية."},
+ {l:1,q:"وُضع الحرف أمام مرآة رأسية. أي وصف لصورته؟",f:"mirrorE",o:["مطابقة تمامًا","معكوسة (يمين↔يسار)","مقلوبة رأسيًا","تختفي"],a:1,e:"المرآة الرأسية تعكس اليمين واليسار فقط."},
+ {l:1,q:"ورقة مربعة طُويت نصفين مرتين ثم ثُقبت ثقبًا واحدًا. كم ثقبًا عند فتحها؟",f:"fold2",o:["٢","٣","٤","٨"],a:2,e:"الطيتان تصنعان ٤ طبقات فيتكرر الثقب ٤ مرات."},
+ {l:2,q:"السهم يشير إلى الأعلى. إذا دُرِّر ٩٠° مع عقارب الساعة فإلى أين يشير؟",f:"arrowUp",o:["يمين","يسار","أسفل","يبقى كما هو"],a:0,e:"ربع دورة مع العقارب ينقل الأعلى إلى اليمين."},
+ {l:2,q:"في المربع نقطة في الزاوية العليا اليمنى. إذا دُوِّر الشكل ٩٠° مع عقارب الساعة فأين تصبح النقطة؟",f:"dotSquare",o:["العليا اليسرى","السفلى اليمنى","السفلى اليسرى","مكانها"],a:1,e:"تنتقل من العليا اليمنى إلى السفلى اليمنى."},
+ {l:2,q:"كم عدد المكعبات في هذا المجسم؟",f:"stack6",o:["٤","٥","٦","٨"],a:2,e:"قاعدة ٢×٢ = ٤ مكعبات + مكعبان في الطبقة الثانية = ٦."},
+ {l:2,q:"مكعب مطلي بالأحمر قُطع إلى ٢٧ مكعبًا صغيرًا. كم مكعبًا له ثلاثة أوجه حمراء؟",o:["٤","٦","٨","١٢"],a:2,e:"هي مكعبات الأركان الثمانية."},
+ {l:2,q:"ثلاثة مكعبات في صف واحد ومكعب فوق الطرف الأيسر. ما شكل المجسم من الأعلى؟",f:"stackL",o:["مربع واحد","شكل L","خط من ٣ مربعات","مربعان متجاوران"],a:2,e:"المنظر العلوي يُسقط الارتفاع، فيظهر صف من ٣ مربعات فقط."},
+ {l:2,q:"أي مما يلي لا يصلح شبكةً لصنع مكعب؟",o:["٦ مربعات في صف واحد","صليب من ٦ مربعات","٤ مربعات في صف ومربع على كل جانب","٤ مربعات في صف ومربع أعلى وآخر أسفل"],a:0,e:"٦ مربعات في صف واحد تلتف حول نفسها ولا تُغلق مكعبًا."},
+ {l:2,q:"ورقة طُويت نصفين ٣ مرات ثم ثُقبت ثقبًا واحدًا. كم ثقبًا عند الفتح؟",f:"fold3",o:["٤","٦","٨","١٦"],a:2,e:"٢×٢×٢ = ٨ طبقات ← ٨ ثقوب."},
+ {l:2,q:"مكعب مطلي قُطع إلى ٢٧ مكعبًا. كم مكعبًا له وجهان مطليان فقط؟",o:["٦","٨","١٢","١٨"],a:2,e:"كل حرف من الأحرف الـ١٢ فيه مكعب واحد."},
+ {l:3,q:"مكعب مطلي قُطع إلى ٦٤ مكعبًا (٤×٤×٤). كم مكعبًا له وجهان مطليان فقط؟",o:["٨","١٦","٢٤","٣٢"],a:2,e:"كل حرف فيه مكعبان في الوسط × ١٢ = ٢٤."},
+ {l:3,q:"مكعب مطلي ٣×٣×٣. كم مكعبًا صغيرًا بلا أي وجه مطلي؟",o:["٠","١","٦","٨"],a:1,e:"المكعب الداخلي الوحيد لا يلمس أي سطح."},
+ {l:3,q:"مكعب مطلي ٣×٣×٣. كم مكعبًا له وجه واحد مطلي فقط؟",o:["٦","٨","١٢","٢٤"],a:0,e:"هي مراكز الأوجه الستة."},
+ {l:3,q:"إذا وُضع جسم بين مرآتين متوازيتين متقابلتين فكيف تظهر صورته بعد انعكاسين؟",o:["معكوسة أفقيًا","معكوسة رأسيًا","مطابقة للأصل","تتلاشى"],a:2,e:"كل انعكاس يلغي أثر الآخر."},
+ {l:3,q:"كم عدد المكعبات في هذا المجسم؟",f:"stack9",o:["٧","٨","٩","١٠"],a:2,e:"٤ + ٤ + ١ = ٩."},
+ {l:3,q:"مكعب كبير من ٢٧ مكعبًا صغيرًا، أُزيل مكعب من كل ركن. كم مكعبًا بقي؟",o:["١٩","٢٠","٢١","٢٤"],a:0,e:"٢٧ − ٨ = ١٩."},
+ {l:3,q:"مجسم يُعطي من الأعلى مربعًا ومن الجانب مستطيلًا. ما هو؟",f:"prism",o:["كرة","أسطوانة","منشور مربّع القاعدة","هرم"],a:2,e:"قاعدته مربعة وارتفاعه مختلف، فيظهر مستطيلًا من الجانب."}]},
+{n:"العلمي",i:"⚙️",c:"#a8841a",t:"الاستدلال العلمي والميكانيكي",s:"تروس وسيور وعتلات وبكرات",demo:1,
+ def:"المطلوب منك: أن تفهم كيف تعمل الأدوات التي نستخدمها كل يوم، مثل المقص والدراجة والمصعد. جرّب المختبر بالأسفل وحرّك بنفسك.",
+ map:[["التروس","المتلامسة تدور عكس بعضها","A ↻ ← B ↺"],["السير","المفتوح بالاتجاه نفسه، والمتقاطع عكسه","سير على شكل ٨ = عكس"],["العتلة","كلما ابتعدت عن الارتكاز قلّت القوة","الحمل ٦٠ على ١ م = ٢٠ على ٣ م"],["البكرة","الثابتة تغيّر الاتجاه، والمتحركة تنصّف القوة","١٠ كجم ← ٥ كجم"],["المقص","عتلتان، والمسمار هو الارتكاز","الورقة السميكة قرب المسمار"],["مواد وحرارة","المعدن موصل جيد، والضغط = القوة ÷ المساحة","السكين الحادة تقطع أسهل"]],
+ tips:["تروس متلامسة = اتجاهان متعاكسان دائمًا.","السير المفتوح: نفس الاتجاه. السير المتقاطع: عكس الاتجاه.","الأصغر أسنانًا يدور أسرع (الدورات عكس عدد الأسنان).","العتلة: القوة × بُعدها = الحمل × بُعده.","البكرة الثابتة لا تقلل القوة، المتحركة تقللها للنصف."],
+ parent:"اربطوا الدرس بالحياة: المقص، الدراجة (تروس وسلسلة)، المصعد (بكرة)، الأرجوحة (عتلة). اسألوا: أين نقطة الارتكاز هنا؟",
+ ex:{q:"ترسان متلامسان، والأول يدور مع عقارب الساعة. كيف يدور الثاني؟",st:["تخيّل أسنان الترسين متداخلة كأصابع اليدين.", "حين يدفع سنّ الأول سنّ الثاني يدفعه إلى الجهة المعاكسة.", "لذلك يدور الثاني عكس الأول دائمًا.", "ولو ربطناهما بسير مفتوح لدارا في الاتجاه نفسه."],a:"عكس عقارب الساعة"},
+ note:"اكتب القاعدة أولًا ثم طبّقها: عزم، ضغط، كثافة، اتجاه دوران.",
+ qs:[
+ {l:1,q:"ترسان متلامسان، الأول يدور مع عقارب الساعة. كيف يدور الثاني؟",f:"gears2",o:["مع عقارب الساعة","عكس عقارب الساعة","يقف","يتذبذب"],a:1,e:"التروس المتلامسة تدور في اتجاهين متعاكسين."},
+ {l:1,q:"ثلاثة تروس متلامسة، الأول مع عقارب الساعة. كيف يدور الثالث؟",f:"gears3",o:["مع عقارب الساعة","عكس عقارب الساعة","يقف","لا يمكن الحكم"],a:0,e:"الثاني يعاكس الأول، والثالث يعاكس الثاني فيوافق الأول."},
+ {l:1,q:"ترسان رُبطا بسير مفتوح، والأول يدور مع عقارب الساعة. كيف يدور الثاني؟",f:"beltOpen",o:["مع عقارب الساعة","عكس عقارب الساعة","يقف","أسرع فقط"],a:0,e:"السير المفتوح ينقل الحركة بالاتجاه نفسه."},
+ {l:1,q:"ترسان رُبطا بسير متقاطع (على شكل ٨)، والأول مع عقارب الساعة. كيف يدور الثاني؟",f:"beltCross",o:["مع عقارب الساعة","عكس عقارب الساعة","يقف","بالاتجاه نفسه"],a:1,e:"تقاطع السير يعكس اتجاه الدوران."},
+ {l:1,q:"في العتلة، أين تدفع لتقلّ القوة اللازمة لرفع الحمل؟",f:"leverA",o:["قرب الارتكاز (١)","بعيدًا عن الارتكاز (٢)","لا فرق","فوق الحمل"],a:1,e:"كلما زادت المسافة عن الارتكاز زاد العزم وقلّت القوة."},
+ {l:1,q:"في المقص، أين تضع الورقة السميكة لتقصّها بأقل جهد؟",f:"scissors",o:["قرب المسمار (الارتكاز)","عند طرف الشفرتين","قرب المقبضين","لا فرق"],a:0,e:"المسمار نقطة الارتكاز، وكلما قرُب الحمل منه قلّت القوة اللازمة."},
+ {l:1,q:"لماذا تقطع السكين الحادّة أسهل من الكليلة؟",o:["لأنها أخف","لأن مساحة تلامسها أقل فالضغط أكبر","لأنها أبرد","لأنها أطول"],a:1,e:"الضغط = القوة ÷ المساحة."},
+ {l:1,q:"أي جسم يطفو على الماء إذا كان لهما الحجم نفسه؟",f:"density",o:["الخشب","الحديد","كلاهما","لا شيء منهما"],a:0,e:"كثافة الخشب أقل من الماء."},
+ {l:1,q:"لماذا تبدو الملعقة المعدنية أسخن من الخشبية في الشاي الساخن؟",f:"thermo",o:["المعدن موصل جيد للحرارة","لونها أغمق","لأنها أثقل","لأنها أكبر"],a:0,e:"المعدن ينقل الحرارة بسرعة إلى اليد."},
+ {l:1,q:"بكرة ثابتة واحدة ترفع حملًا ١٠ كجم. كم القوة اللازمة تقريبًا؟",f:"pulleyFixed",o:["٥ كجم","١٠ كجم","٢٠ كجم","٤٠ كجم"],a:1,e:"الثابتة تغيّر الاتجاه فقط."},
+ {l:1,q:"في الدائرة الكهربائية المغلقة، ماذا يحدث للمصباح عند فتح المفتاح؟",f:"circuit",o:["يزداد ضوؤه","ينطفئ","ينفجر","لا يتأثر"],a:1,e:"فتح المفتاح يقطع الدائرة فينطفئ المصباح."},
+ {l:2,q:"الترس A (١٠ أسنان) يُدير B (٢٠ سنًّا) بالتلامس. إذا دار A أربع دورات فكم يدور B؟",f:"gearsTrain",o:["٢","٤","٨","٤٠"],a:0,e:"٤ × ١٠ ÷ ٢٠ = ٢ دورة."},
+ {l:2,q:"ترس صغير (١٠ أسنان) يُدير ترسًا كبيرًا (٣٠ سنًّا) بسير. إذا دار الصغير ٣ دورات فكم يدور الكبير؟",f:"beltSize",o:["١","٣","٩","٣٠"],a:0,e:"٣ × ١٠ ÷ ٣٠ = دورة واحدة؛ الكبير أبطأ."},
+ {l:2,q:"بكرة متحركة واحدة ترفع حملًا ١٠ كجم. كم القوة اللازمة تقريبًا؟",f:"pulleyMovable",o:["٢.٥ كجم","٥ كجم","١٠ كجم","٢٠ كجم"],a:1,e:"المتحركة تقلّل القوة للنصف ← ٥ كجم."},
+ {l:2,q:"الحمل ٦٠ كجم على بُعد ١ م من الارتكاز، والقوة على بُعد ٣ م. ما القوة اللازمة؟",f:"leverC",o:["١٠ كجم","٢٠ كجم","٣٠ كجم","٦٠ كجم"],a:1,e:"٦٠×١ = ق×٣ ← ق = ٢٠ كجم."},
+ {l:2,q:"مقصّان: أحدهما مقبضاه أطول. أيهما يقصّ بجهد أقل؟",f:"scissors",o:["الأطول مقبضين","الأقصر مقبضين","لا فرق","الأثقل فقط"],a:0,e:"المقبض الأطول يزيد ذراع القوة فتقلّ القوة اللازمة."},
+ {l:2,q:"ما وظيفة الزيت في محرك السيارة؟",o:["يزيد الوزن","يقلّل الاحتكاك بين الأجزاء","يزيد الحرارة","يمنع الصدأ فقط"],a:1,e:"الزيت مزلّق يقلّل الاحتكاك والتآكل."},
+ {l:2,q:"لماذا تطفو السفينة الحديدية مع أن الحديد أثقل من الماء؟",o:["لأنها مفرّغة من الهواء تمامًا","لأن شكلها يزيح حجمًا كبيرًا من الماء","لأنها تتحرك بسرعة","لأن ماء البحر حلو"],a:1,e:"قوة الطفو = وزن الماء المُزاح، والشكل المجوّف يزيح ماءً كثيرًا."},
+ {l:2,q:"في الشكل ثلاثة تروس: A والوسيط و C. إذا دار A مع عقارب الساعة فكيف يدور C؟",f:"gearsIdler",o:["مع عقارب الساعة","عكس عقارب الساعة","يقف","أسرع"],a:0,e:"الوسيط يعكس الاتجاه مرتين فيعود C موافقًا لـ A."},
+ {l:2,q:"لماذا يخترق المسمار الرفيع الخشب أسهل من العريض بنفس القوة؟",o:["لأنه أخف","لأن مساحة مقطعه أقل فالضغط أكبر","لأنه أقصر","لأنه أملس"],a:1,e:"المساحة الأقل تعني ضغطًا أكبر."},
+ {l:2,q:"أي مادة تنقل الحرارة أسرع؟",o:["الخشب","البلاستيك","النحاس","الزجاج"],a:2,e:"المعادن موصلات جيدة للحرارة."},
+ {l:3,q:"بكرتان متحركتان متتاليتان ترفعان حملًا ١٠ كجم. كم القوة اللازمة تقريبًا؟",o:["١.٢٥ كجم","٢.٥ كجم","٥ كجم","١٠ كجم"],a:1,e:"٢×٢ = ٤ ← ١٠÷٤ = ٢.٥ كجم."},
+ {l:3,q:"تروس متسلسلة: A (١٠ أسنان) ← B (٣٠) ← C (١٥). إذا دار A ثلاث دورات فكم يدور C؟",o:["١","٢","٣","٦"],a:1,e:"A→B: ٣×١٠÷٣٠ = ١، ثم B→C: ١×٣٠÷١٥ = ٢ دورة."},
+ {l:3,q:"لماذا يُرشّ الملح على الطرق المتجمدة؟",o:["يخفض درجة تجمّد الماء فيذوب الجليد","يزيد الاحتكاك فقط","يدفئ الطريق","يمنع المطر"],a:0,e:"الملح يخفض درجة تجمّد الماء."},
+ {l:3,q:"بندول بسيط: إذا أطلنا خيطه مع ثبات الكتلة فماذا يحدث لزمن الذبذبة؟",o:["يزداد","ينقص","لا يتغير","يتوقف"],a:0,e:"زمن الذبذبة يزداد بزيادة طول الخيط."},
+ {l:3,q:"بكرة ثابتة وأخرى متحركة ترفعان حملًا ١٠ كجم. كم القوة اللازمة؟",o:["٢.٥ كجم","٥ كجم","١٠ كجم","٢٠ كجم"],a:1,e:"المتحركة تنصّف القوة، والثابتة تغيّر الاتجاه ← ٥ كجم."},
+ {l:3,q:"لماذا يزداد ضغط الماء كلما زاد العمق؟",o:["لأن وزن الماء فوق النقطة يزداد","لأن الماء يصبح أبرد","لأن الكثافة تنقص","لأن الجاذبية تقل"],a:0,e:"الضغط = وزن عمود الماء فوق المساحة."},
+ {l:3,q:"تُترك فراغات صغيرة بين قضبان السكة الحديدية. ما السبب؟",o:["لتوفير الحديد","لأنها تتمدد بالحرارة","لتقليل الضغط","لتسهيل النقل"],a:1,e:"المعادن تتمدد بالحرارة والفراغات تمنع انحناءها."},
+ {l:3,q:"ترس A (١٢ سنًّا) يُدير B (٢٤ سنًّا) بسير متقاطع. إذا دار A ٦ دورات مع العقارب فماذا يفعل B؟",f:"beltCross",o:["٣ دورات مع العقارب","٣ دورات عكس العقارب","١٢ دورة عكس العقارب","٦ دورات مع العقارب"],a:1,e:"النسبة ١٢÷٢٤ فتصبح ٣ دورات، والسير المتقاطع يعكس الاتجاه."}]},
+{n:"المرونة",i:"🔀",c:"#8a3b3b",t:"المرونة العقلية وحل المشكلات",s:"قواعد جديدة وتغيير الفكرة",
+ def:"المطلوب منك: أن تغيّر طريقة تفكيرك بسرعة. إذا لم تنجح فكرتك الأولى فجرّب فكرة ثانية، كأنك تلعب لعبة جديدة.",
+ map:[["القاعدة السرية","طبّق الفكرة على كل الأمثلة قبل أن تعتمدها","٢←٥، ٣←١٠ (عدد²+١)"],["رموز جديدة","اقبل القاعدة كما يعطيها السؤال","أ ⊗ ب = أ + ٢ب"],["العدد الشاذ","أوليّة؟ مربعات؟ مكعبات؟","٨، ٢٧، ٦٤، ٥٠ ← ٥٠"],["ألغاز المنطق","افرض احتمالًا واستبعد المتناقض","أكواب وكرة"],["المصفوفات","اكتشف قاعدة الصف ثم طبّقها","٢+٣=٥"]],
+ tips:["لا تتمسّك بفكرتك الأولى، غيّر الزاوية.","جرّب: الجمع ← الضرب ← المربعات ← الفروق.","اختبر القاعدة على كل المعطيات.","في الألغاز اكتب الاحتمالات واحدًا واحدًا."],
+ parent:"ألعاب الألغاز والشطرنج والسودوكو تنمّي هذه المهارة. بعد الحل اسألوا: هل توجد طريقة ثانية؟",
+ ex:{q:"في لعبة سرّية: ٢ تصبح ٥، و٣ تصبح ١٠، و٤ تصبح ١٧. ماذا تصبح ٥ ؟",st:["نجرّب فكرة الجمع: ٢+٣ = ٥ لكنها لا تنجح مع الباقي.", "نغيّر الفكرة فورًا! نجرّب ضرب العدد في نفسه: ٢×٢ = ٤، وهذا قريب من ٥.", "نضيف ١ فنحصل على ٥ ✓، ونجرّب ٣×٣+١ = ١٠ ✓.", "القاعدة: العدد × نفسه + ١. إذن ٥×٥+١ = ٢٦."],a:"٢٦"},
+ note:"غيّر زاويتك بسرعة، ولا تتشبث بالفكرة الأولى.",
+ qs:[
+ {l:1,q:"إذا كان ★ = ٣ و ◆ = ٥، فما قيمة ★ ★ ◆ ؟",o:["١١","١٣","٨","١٥"],a:0,e:"٣ + ٣ + ٥ = ١١."},
+ {l:1,q:"في لعبة معكوسة الأعداد الأكبر تُعدّ أصغر. ما «أصغر» عدد بين ٣، ٩، ٥؟",o:["٣","٩","٥","لا يمكن"],a:1,e:"القاعدة معكوسة، فالأكبر (٩) هو الأصغر."},
+ {l:1,q:"ماء – جليد – بخار: ما الذي يجمعها؟",o:["حالات المادة","ألوان","حيوانات","أدوات"],a:0,e:"هي المادة نفسها في ثلاث حالات."},
+ {l:1,q:"أي عدد لا ينتمي: ٢ – ٣ – ٥ – ٧ – ٩ ؟",o:["٢","٣","٥","٩"],a:3,e:"٩ ليس أوليًا (٣×٣)."},
+ {l:1,q:"٢ ← ٥، ٣ ← ١٠، ٤ ← ١٧، ٥ ← ؟",o:["٢٤","٢٥","٢٦","٢٧"],a:2,e:"القاعدة: العدد² + ١ ← ٢٦."},
+ {l:1,q:"أي عدد لا ينتمي: ٨ – ٢٧ – ٦٤ – ٥٠ ؟",o:["٨","٢٧","٦٤","٥٠"],a:3,e:"الباقي مكعبات كاملة (2³، 3³، 4³)."},
+ {l:1,q:"1، 2، 4، 7، 11، ؟",o:["١٤","١٥","١٦","١٨"],a:2,e:"الفروق: 1، 2، 3، 4، فالتالي 5 ← 16."},
+ {l:2,q:"يبدأ العدد من ٤. كل 🔴 يُضرب في ٢، وكل 🔵 تُضاف ٣. ما الناتج بعد: 🔴 🔵 🔴 ؟",o:["٢٢","١٩","١٤","٢٨"],a:0,e:"4×2 = 8 ← 11 ← 22."},
+ {l:2,q:"إذا كان أ ⊗ ب = أ + ٢ب، فما قيمة ٣ ⊗ ٤ ؟",o:["٩","١٠","١١","١٢"],a:2,e:"٣ + ٨ = ١١."},
+ {l:2,q:"إذا كان أ ⊕ ب = (أ × ب) − أ، فما قيمة ٥ ⊕ ٣ ؟",o:["١٠","١٢","١٥","٨"],a:0,e:"(5×3) − 5 = 10."},
+ {l:2,q:"استُبدل كل حرف بالذي يليه في الأبجدية. ماذا تصبح كلمة «علم»؟",o:["غمن","عمن","غلن","علم"],a:0,e:"ع←غ، ل←م، م←ن."},
+ {l:2,q:"٣ ← ٦، ٦ ← ١١، ١١ ← ١٨، ١٨ ← ؟",o:["٢٥","٢٦","٢٧","٢٨"],a:2,e:"الزيادات: 3، 5، 7، 9 ← 18+9 = 27."},
+ {l:2,q:"3، 6، 11، 18، 27، ؟",o:["٣٦","٣٧","٣٨","٤٠"],a:2,e:"الفروق: 3، 5، 7، 9، فالتالي 11 ← 38."},
+ {l:2,q:"في سباق خمسة: د قبل أ، وأ قبل ب، وب قبل ج، وج قبل هـ. من صاحب المركز الثاني؟",o:["د","أ","ب","ج"],a:1,e:"الترتيب: د، أ، ب، ج، هـ."},
+ {l:2,q:"مصفوفة: ٢ ٣ ٥ / ٤ ٥ ٩ / ٦ ٧ ؟",o:["١١","١٢","١٣","١٤"],a:2,e:"الثالث = مجموع الأولين ← 13."},
+ {l:3,q:"مصفوفة: ٣ ٤ ٢٥ / ٥ ٦ ٦١ / ٧ ٨ ؟",o:["١٠١","١١٣","١٢٥","١٤٤"],a:1,e:"أ² + ب² ← 49 + 64 = 113."},
+ {l:3,q:"إذا كان ١+٤=٥، و٢+٥=١٢، و٣+٦=٢١، فما ٨+١١؟",o:["٨٨","٩٦","١٠٤","٨٥"],a:1,e:"القاعدة: أ + (أ×ب) ← 8 + 88 = 96."},
+ {l:3,q:"إذا كانت أ ★ ب = (أ + ب) × (أ − ب)، فما قيمة ٧ ★ ٤ ؟",o:["٢٨","٣٣","٤٥","١١"],a:1,e:"11 × 3 = 33."},
+ {l:3,q:"ثلاثة أكواب تحت أحدها كرة. الأول: «الكرة ليست تحتي». الثاني: «الكرة تحت الثالث». الثالث: «الكرة تحتي». عبارة واحدة فقط صحيحة. أين الكرة؟",o:["تحت الأول","تحت الثاني","تحت الثالث","لا يمكن التحديد"],a:1,e:"تحت الأول: كلها خطأ. تحت الثاني: الأولى فقط صحيحة ✔. تحت الثالث: الثلاث صحيحة."},
+ {l:3,q:"عدد من رقمين مجموعهما ٩، وإذا عكسنا رقميه نقص العدد بـ ٢٧. ما العدد؟",o:["٤٥","٥٤","٦٣","٧٢"],a:2,e:"٦٣ − ٣٦ = ٢٧، ومجموع رقميه ٩ ✔"},
+ {l:3,q:"1، 3، 7، 15، 31، ؟",o:["٤٧","٦٣","٦٢","٩٣"],a:1,e:"كل حد = السابق ×2 + 1 ← 63."},
+ {l:3,q:"آلة تحوّل: ٥ ← ١٣، ٧ ← ١٧، ١٠ ← ٢٣. فما تحويل ١٢ ؟",o:["٢٥","٢٧","٢٩","٣١"],a:1,e:"القاعدة: ×2 + 3 ← 27."}]}
+];
+
+/* ================= الحالة ================= */
+const GR=["الثالث الابتدائي","الرابع الابتدائي","الخامس الابتدائي","السادس الابتدائي"];
+const LT=["أ","ب","ج","د"],$=s=>document.querySelector(s);
+let P={},A={},S={t:0,q:0,s:"home"},edit=false;
+function save(){try{localStorage.setItem("mwhb2",JSON.stringify({P,A}))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem("mwhb2")||"{}");P=d.P||{};A=d.A||{}}catch(e){}}
+const tst=t=>{let a=0,c=0;T[t].qs.forEach((q,i)=>{const v=A[t+"-"+i];if(v!==undefined){a++;if(v===q.a)c++}});return{a,c,n:T[t].qs.length}};
+
+/* ================= الرئيسية ================= */
+const SCHOOL="رياض الإبداع";
+function home(){
+ const form=!P.name||edit;
+ const prof=form?`<div class="card"><div class="form">
+  <div><label>اسم الطالب</label><input type="text" id="pn" value="${P.name||""}" placeholder="اكتب اسمك"></div>
+  <div><label>الصف</label><select id="pg">${GR.map(g=>`<option${g===P.grade?" selected":""}>${g}</option>`).join("")}</select></div>
+  <div class="full"><button class="btn gold big" onclick="saveP()">💾 حفظ البيانات</button></div></div></div>`
+ :`<div class="card sum"><span style="font-size:1.4rem">👤</span><b>${P.name} <small style="color:var(--mu);font-weight:500">· ${P.grade}</small></b><button class="btn light" onclick="edit=true;home()">تعديل</button></div>`;
+ let ta=0,tc=0,tn=0;T.forEach((x,i)=>{const s=tst(i);ta+=s.a;tc+=s.c;tn+=s.n});
+ $("#app").innerHTML=`<header class="cover"><div class="cin"><div class="lg"><svg viewBox="0 0 48 48" width="40" height="40"><path d="M24 4l6 13 14 2-10 10 3 14-13-7-13 7 3-14L4 19l14-2z" fill="#c9a227" stroke="#14296b" stroke-width="2" stroke-linejoin="round"/></svg></div><div><span class="badge">مقياس موهبة</span><h1>${SCHOOL}</h1><small>${P.name?"الطالب: "+P.name+" · "+P.grade:"سجّل اسمك وصفك لحفظ تقدّمك"}</small></div></div></header>
+ <div class="wrap"><div class="sec">بيانات الطالب</div>${prof}
+ <div class="sec">المحاور <small style="font-weight:500;color:var(--mu)">· أجبت ${ta} من ${tn}${ta?" · الدقة "+Math.round(tc/ta*100)+"%":""}</small></div>
+ <div class="tiles">${T.map((x,i)=>{const s=tst(i);return`<div class="tile" style="--a:${x.c}"><div class="th"><span class="ic">${x.i}</span><div><b>${x.n}</b><small>${x.s}</small></div></div>
+ <div class="pr"><div class="mb"><i style="width:${s.a/s.n*100}%"></i></div>أجبت <em>${s.a}</em> من ${s.n}${s.a?" · صحيحة <em>"+s.c+"</em>":""}</div>
+ <div class="tb"><button onclick="openT(${i},'ex')">📘 الشرح المبسّط</button><button onclick="openT(${i},'qz')">✏️ ${s.a&&s.a<s.n?"أكمل التمارين":"التمارين"}</button></div></div>`}).join("")}</div>
+ <div class="sec">التقرير النهائي</div><div class="card sum"><span style="font-size:1.4rem">📊</span><b>تقرير الأداء <small style="color:var(--mu);font-weight:500">· جاهز للطباعة وحفظ PDF</small></b><button class="btn" onclick="openR()">عرض التقرير</button></div>
+ <div class="foot"><span>إعداد الأستاذ أسامة إبراهيم</span><span dir="ltr">TikTok @osam.ibrahem</span></div></div>`}
+function saveP(){const n=$("#pn").value.trim();if(!n){$("#pn").focus();return}
+ P.name=n;P.grade=$("#pg").value;edit=false;save();home()}
+
+/* ================= الشاشات ================= */
+function openT(t,s){S.t=t;S.s=s;if(s==="qz"){const k=T[t].qs.findIndex((q,i)=>A[t+"-"+i]===undefined);if(k<0)S.s="rs";else S.q=k}
+ $("#ov").classList.add("open");document.body.style.overflow="hidden";sheet()}
+function closeT(){stopLab();document.body.classList.remove("rp");$("#ov").classList.remove("open");document.body.style.overflow="";home()}
+function sheet(){stopLab();const x=T[S.t];$("#sh").innerHTML=S.s==="rp"?reportHTML():S.s==="ex"?exHTML(x):S.s==="qz"?qzHTML(x):rsHTML(x);const b=$(".body");if(b)b.scrollTop=0;if(S.s==="ex"&&x.demo)initLab();if(S.s==="rs")celebrate()}
+const bar=(x,t,r)=>`<div class="bar" style="background:${x.c}"><button onclick="closeT()">✕</button><b>${x.i} ${t}</b><button class="sn" onclick="tgS(this)">${SND?"🔊":"🔇"}</button>${r||""}</div>`;
+function exHTML(x){const s=tst(S.t);
+ return bar(x,x.n+" · الشرح")+`<div class="body"><div class="in" style="--a:${x.c}"><h2 style="margin:6px 0;color:${x.c}">${x.t}</h2><div class="box">${x.def}</div>
+ <div class="hd">🗺️ خريطة المحور</div><div class="map"><div class="ct">${x.n}</div><div class="ln"></div><div class="br">${x.map.map(m=>`<span>${m[0]}</span>`).join("")}</div></div>
+ <div class="hd">📋 أنواع الأسئلة وكيف نحلّها</div><div class="tw"><table class="tbl"><tr><th>النوع</th><th>الطريقة ببساطة</th></tr>${x.map.map(m=>`<tr><td>${m[0]}</td><td>${m[1]}</td></tr>`).join("")}</table></div>
+ <div class="hd">🧪 مثال مشروح خطوة بخطوة</div><div class="exm"><div class="q">❓ ${x.ex.q}</div><div class="tips">${x.ex.st.map((t,i)=>`<div class="tip"><i>${i+1}</i><span>${t}</span></div>`).join("")}</div><div class="ans">✅ الجواب: ${x.ex.a}</div></div>
+ ${x.demo?`<div class="hd">🔬 جرّب بنفسك: التروس والسير</div><div class="fig lab"><div style="width:100%"><svg id="lsv" viewBox="0 0 340 130"></svg><div class="ltxt" id="lt"></div></div></div>
+ <div class="ctl" id="lc"><button data-m="mesh">تروس متلامسة</button><button data-m="open">سير مفتوح</button><button data-m="cross">سير متقاطع</button><button data-a="+">+ ترس</button><button data-a="-">− ترس</button><button data-a="p">⏯ إيقاف/تشغيل</button></div>
+ <div class="hd">⚖️ العتلة: حرّك نقطة الارتكاز لترى التوازن</div><div class="fig"><div style="width:100%"><svg id="lvs" viewBox="0 0 400 200"></svg><input type="range" id="lvr" min="12" max="80" value="50" aria-label="نقطة الارتكاز"><div class="ltxt" id="lvt"></div></div></div>`:""}
+ <div class="hd">🎯 للطالب: خطوات الحل</div><div class="tips">${x.tips.map((t,i)=>`<div class="tip"><i>${i+1}</i><span>${t}</span></div>`).join("")}</div>
+ <div class="hd">👨‍👩‍👧 لولي الأمر</div><div class="par">${x.parent}</div>
+ <div class="hd">💡 تذكّر</div><div class="box">${x.note}</div>
+ <p style="text-align:center;color:var(--mu);font-size:.8rem">أجبت عن ${s.a} من ${s.n}</p><button class="btn big" style="background:${x.c}" onclick="openT(${S.t},'qz')">ابدأ التمارين ←</button></div></div>`}
+function qzHTML(x){const q=x.qs[S.q],k=S.t+"-"+S.q,pk=A[k],an=pk!==undefined,last=S.q===x.qs.length-1;
+ return bar(x,"التمارين",`<span>${S.q+1} / ${x.qs.length}</span>`)+`<div class="pb"><i style="width:${(S.q+1)/x.qs.length*100}%;background:${x.c}"></i></div>
+ <div class="body"><div class="in" style="--a:${x.c}"><div class="qhd"><span class="lv l${q.l}">${["","تأسيسي","متوسط","متقدّم"][q.l]}</span></div><div class="qt">${q.q}</div>
+ ${q.f?`<div class="fig">${FIG[q.f]}</div>`:""}
+ <div class="opts">${q.o.map((o,i)=>`<button class="opt${an?(i===q.a?" ok":i===pk?" no":""):""}" ${an?"disabled":""} onclick="ans(${i})"><b>${LT[i]}</b><span>${o}</span></button>`).join("")}</div>
+ <div id="fb">${an?fb(q,pk):""}</div>
+ <button class="btn big" id="nx" style="margin-top:12px;background:${x.c};display:${an?"flex":"none"}" onclick="nxt()">${last?"عرض النتيجة 🎯":"السؤال التالي ←"}</button></div></div>`}
+const fb=(q,p)=>`<div class="fb ${p===q.a?"ok":"no"}"><p>${p===q.a?"✅ إجابة صحيحة":"❌ الصواب: "+q.o[q.a]}</p>${q.e}</div>`;
+function ans(i){const k=S.t+"-"+S.q;if(A[k]!==undefined)return;A[k]=i;save();sheet();if(i===T[S.t].qs[S.q].a){SFX.ok();boom(28,50,40)}else SFX.no()}
+function nxt(){if(S.q>=T[S.t].qs.length-1)S.s="rs";else S.q++;sheet()}
+function rsHTML(x){const s=tst(S.t),p=Math.round(s.c/s.n*100),w=x.qs.map((q,i)=>({q,i})).filter(o=>A[S.t+"-"+o.i]!==o.q.a);
+ return bar(x,"النتيجة")+`<div class="body"><div class="in res" style="--a:${x.c}"><div class="pc">${p}%</div><b>${p>=90?"ممتاز 🌟":p>=70?"جيد جدًا 👏":p>=50?"جيد 💪":"راجع الشرح وحاول مجددًا 🙂"}</b>
+ <div class="st"><div><b>${s.c}</b>صحيحة</div><div><b>${s.n-s.c}</b>خاطئة</div><div><b>${s.n}</b>الكل</div></div>
+ ${w.length?`<div class="hd">📝 مراجعة الأخطاء</div>`+w.map(o=>`<div class="rv"><b>${o.q.q}</b><br><span style="color:var(--ok)">✔ ${o.q.o[o.q.a]}</span><br><small style="color:var(--mu)">${o.q.e}</small></div>`).join(""):`<div class="box">🎉 أداء كامل!</div>`}
+ <div style="display:grid;gap:8px;margin-top:14px"><button class="btn big" style="background:${x.c}" onclick="rst()">↻ إعادة المحاولة</button><button class="btn light big" onclick="closeT()">العودة للرئيسية</button></div></div></div>`}
+function rst(){T[S.t].qs.forEach((q,i)=>delete A[S.t+"-"+i]);save();S.q=0;S.s="qz";sheet()}
+
+
+/* ===== صوت واحتفال ===== */
+let SND=true,AC=null;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+function tone(f,t0,d,ty,v){const c=ac();if(!c||!SND)return;const o=c.createOscillator(),g=c.createGain(),s=c.currentTime+t0;o.type=ty||"sine";o.frequency.value=f;g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(v||.16,s+.02);g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g);g.connect(c.destination);o.start(s);o.stop(s+d+.05)}
+const SFX={tap:()=>tone(520,0,.07,"triangle",.07),ok:()=>{tone(660,0,.14);tone(880,.1,.14);tone(1175,.2,.3)},no:()=>{tone(230,0,.18,"sawtooth",.07);tone(170,.16,.3,"sawtooth",.07)},win:()=>{[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,i*.13,.28,"triangle",.18))},soft:()=>{tone(440,0,.2,"sine",.12);tone(523,.18,.3,"sine",.12)}};
+function tgS(b){SND=!SND;document.querySelectorAll("#sb,.sn").forEach(x=>x.textContent=SND?"🔊":"🔇");if(SND)SFX.tap()}
+function boom(n,ox,oy){const w=document.createElement("div");w.className="cf";document.body.appendChild(w);const C=["#c9a227","#1d3f9e","#e7c95a","#3b64d6","#0f7a55","#ffffff"];
+ for(let i=0;i<n;i++){const p=document.createElement("i"),a=Math.random()*PI*2,d=70+Math.random()*(n>40?250:130);p.style.cssText=`left:${ox}%;top:${oy}%;background:${C[i%6]};--x:${(Math.cos(a)*d).toFixed(0)}px;--y:${(Math.sin(a)*d-90).toFixed(0)}px;--r:${(Math.random()*720).toFixed(0)}deg;animation-delay:${(Math.random()*.12).toFixed(2)}s`;w.appendChild(p)}setTimeout(()=>w.remove(),2300)}
+function celebrate(){const s=tst(S.t),p=s.c/s.n*100;if(p>=50){SFX.win();boom(70,50,35);setTimeout(()=>boom(50,22,40),350);setTimeout(()=>boom(50,78,40),600)}else SFX.soft()}
+document.addEventListener("click",e=>{ac();if(e.target.closest("button")&&!e.target.closest(".opt,.sn,#sb"))SFX.tap()});
+/* ===== التقرير النهائي ===== */
+const gdg=p=>p>=90?"ممتاز":p>=75?"جيد جدًا":p>=60?"جيد":p>=50?"مقبول":"يحتاج دعمًا";
+function openR(){S.s="rp";document.body.classList.add("rp");$("#ov").classList.add("open");document.body.style.overflow="hidden";sheet()}
+function reportHTML(){
+ let a=0,c=0,n=0;const L={1:[0,0],2:[0,0],3:[0,0]};
+ T.forEach((x,t)=>x.qs.forEach((q,i)=>{n++;const v=A[t+"-"+i];if(v!==undefined){a++;L[q.l][1]++;if(v===q.a){c++;L[q.l][0]++}}}));
+ const p=a?Math.round(c/a*100):0,R=2*PI*52,st=T.map((x,i)=>({x,...tst(i)}));
+ st.forEach(s=>s.p=s.a?Math.round(s.c/s.a*100):0);
+ const strong=st.filter(s=>s.a>=3&&s.p>=75),weak=st.filter(s=>s.a>=3&&s.p<60),idle=st.filter(s=>s.a<3);
+ const li=(arr,f)=>arr.length?`<ul class="lst">${arr.map(f).join("")}</ul>`:`<p style="font-size:.86rem;color:var(--mu);margin:4px 0">لا يوجد حاليًا.</p>`;
+ const d=new Date().toLocaleDateString("ar-SA",{year:"numeric",month:"long",day:"numeric"});
+ return `<div class="bar noprint"><button onclick="closeT()">✕</button><b>📊 التقرير النهائي</b><button class="sn" onclick="tgS(this)">${SND?"🔊":"🔇"}</button></div><div class="body"><div class="rp" style="--a:#1d3f9e">
+ <div class="rph"><span class="badge">مقياس موهبة</span><h2>${SCHOOL}</h2><small>التقرير النهائي لأداء الطالب في التدريب</small>
+ <div class="rid"><div><b>الطالب</b>${P.name||"—"}</div><div><b>الصف</b>${P.grade||"—"}</div><div><b>التاريخ</b>${d}</div></div></div>
+ <div class="big"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#dfe4f1" stroke-width="11"/><circle cx="60" cy="60" r="52" fill="none" stroke="#c9a227" stroke-width="11" stroke-linecap="round" stroke-dasharray="${R.toFixed(1)}" stroke-dashoffset="${(R*(1-p/100)).toFixed(1)}" transform="rotate(-90 60 60)"/><text x="60" y="62" text-anchor="middle" dominant-baseline="central" font-size="26" font-weight="700" fill="#14296b">${p}%</text></svg>
+ <div><b style="font-size:1.15rem;color:var(--b2)">التقدير العام: ${a?gdg(p):"لم يبدأ بعد"}</b><div style="font-size:.88rem;color:var(--mu)">أجاب عن ${a} من ${n} سؤالًا، منها ${c} إجابة صحيحة.</div></div></div>
+ <div class="hd" style="background:var(--b)">📋 الأداء حسب المحور</div><div class="tw"><table class="tbl" style="--a:#1d3f9e;min-width:0"><tr><th>المحور</th><th>أجاب</th><th>صحيحة</th><th>النسبة</th><th>التقدير</th></tr>
+ ${st.map(s=>`<tr><td>${s.x.i} ${s.x.n}</td><td>${s.a}/${s.n}</td><td>${s.c}</td><td><div class="rbar"><i style="width:${s.p}%;background:${s.x.c}"></i></div>${s.p}%</td><td>${s.a?gdg(s.p):"—"}</td></tr>`).join("")}</table></div>
+ <div class="hd" style="background:var(--b)">📈 الأداء حسب مستوى الصعوبة</div><div class="st">${[["تأسيسي",1],["متوسط",2],["متقدّم",3]].map(m=>`<div><b>${L[m[1]][0]} / ${L[m[1]][1]}</b>${m[0]}</div>`).join("")}</div>
+ <div class="hd" style="background:var(--ok)">⭐ نقاط القوة</div>${li(strong,s=>`<li>${s.x.n}: ${s.p}%</li>`)}
+ <div class="hd" style="background:var(--no)">🎯 يحتاج إلى تدريب</div>${li(weak,s=>`<li><b>${s.x.n}</b> (${s.p}%): ${s.x.tips[0]}</li>`)}
+ ${idle.length?`<div class="hd" style="background:var(--g2)">🚀 لم يكتمل بعد</div>${li(idle,s=>`<li>${s.x.n}: أجاب عن ${s.a} فقط، يُنصح بإكمال التمارين.</li>`)}`:""}
+ <div class="hd" style="background:var(--b)">👨‍👩‍👧 توصيات لولي الأمر</div><ul class="lst"><li>التدريب القصير اليومي (١٥ دقيقة) أفضل من جلسة طويلة.</li><li>اطلبوا من الطالب أن يشرح طريقة الحل بصوته.</li>${(weak.length?weak:st).slice(0,2).map(s=>`<li>${s.x.n}: ${s.x.parent}</li>`).join("")}</ul>
+ <div class="sg"><div>توقيع المعلم</div><div>توقيع ولي الأمر</div></div>
+ <div class="foot"><span>إعداد الأستاذ أسامة إبراهيم</span><span dir="ltr">TikTok @osam.ibrahem</span></div>
+ <div class="noprint" style="display:grid;gap:8px"><button class="btn gold big" onclick="window.print()">🖨 طباعة / حفظ PDF</button><button class="btn light big" onclick="closeT()">العودة للرئيسية</button></div></div></div>`}
+
+/* ================= المختبر المتحرك ================= */
+let raf=0,paused=false,th=0,last=0,L={m:"mesh",n:3};
+function stopLab(){cancelAnimationFrame(raf);raf=0}
+function buildLab(){
+ const sv=$("#lsv");if(!sv)return;let s="",lt="";
+ if(L.m==="mesh"){const Ts=[14,20,14,20,14].slice(0,L.n),rs=Ts.map(t=>t*M),y=62;let x=12+rs[0],xs=[x];
+  for(let i=1;i<Ts.length;i++){x+=rs[i-1]+rs[i];xs.push(x)}const W=x+rs[rs.length-1]+12;sv.setAttribute("viewBox",`0 0 ${W.toFixed(0)} 128`);
+  Ts.forEach((t,i)=>{s+=gearG("g"+i,xs[i],y,t,0,i)+`<text id="d${i}" x="${xs[i]}" y="124" text-anchor="middle" font-size="13" font-weight="700" fill="${B}"></text>`});
+  lt="التروس المتلامسة تدور بالتناوب: اتجاه ثم عكسه، والأصغر أسنانًا أسرع.";}
+ else{const cr=L.m==="cross",r1=14*M,r2=24*M,y=70,x1=12+r1,x2=x1+r1+r2+70,W=x2+r2+12;sv.setAttribute("viewBox",`0 0 ${W.toFixed(0)} 150`);
+  const d=belt(x1,r1,x2,r2,y,cr);
+  s=`<path d="${d}" fill="none" stroke="#6b7694" stroke-width="5" stroke-linejoin="round"/><path id="bd" d="${d}" fill="none" stroke="${G}" stroke-width="1.6" stroke-dasharray="7 6"/>`+gearG("g0",x1,y,14,0,0)+gearG("g1",x2,y,24,0,1)+`<text id="d0" x="${x1}" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="${B}"></text><text id="d1" x="${x2}" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="${B}"></text>`;
+  lt=cr?"السير المتقاطع يعكس الاتجاه، والترس الأصغر (١٤ سنًّا) أسرع من الأكبر (٢٤).":"السير المفتوح يُبقي الاتجاه نفسه، والترس الأصغر (١٤ سنًّا) أسرع من الأكبر (٢٤).";}
+ sv.innerHTML=s;$("#lt").textContent=lt;
+ document.querySelectorAll("#lc [data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===L.m));
+ document.querySelectorAll("#lc [data-a]").forEach(b=>{if(b.dataset.a!=="p")b.style.display=L.m==="mesh"?"":"none"})}
+function frame(t){raf=requestAnimationFrame(frame);if(!$("#lsv")){stopLab();return}
+ const dt=Math.min(.05,(t-last)/1000||0);last=t;if(!paused)th+=dt*1.1;
+ let an,dirs;
+ if(L.m==="mesh"){const Ts=[14,20,14,20,14].slice(0,L.n);an=meshAng(Ts,th);dirs=an.map((_,i)=>i%2?"↺":"↻")}
+ else{const sg=L.m==="cross"?-1:1;an=[th*180/PI,sg*th*(14/24)*180/PI];dirs=["↻",sg>0?"↻":"↺"];const bd=$("#bd");if(bd)bd.setAttribute("stroke-dashoffset",(-th*14*M).toFixed(1))}
+ an.forEach((a,i)=>{const g=$("#g"+i);if(g){g.setAttribute("transform",g.getAttribute("transform").replace(/rotate\([^)]*\)/,"rotate("+a.toFixed(2)+")"))}const d=$("#d"+i);if(d)d.textContent=dirs[i]+" "+"ABCDE"[i]});
+ lever()}
+function lever(){const f=+$("#lvr").value/100,fx=40+320*f,a=Math.max(-16,Math.min(16,(20*(1-f)*320-60*f*320)/1800)),bal=Math.abs(60*f-20*(1-f))<1.2;
+ $("#lvs").innerHTML=`<line x1="15" y1="178" x2="385" y2="178" stroke="#dfe4f1" stroke-width="5" stroke-linecap="round"/>
+ <polygon points="${fx},120 ${fx-26},178 ${fx+26},178" fill="#e8eefc" stroke="#1d3f9e" stroke-width="2.2" stroke-linejoin="round"/><circle cx="${fx}" cy="120" r="5" fill="${G}" stroke="#14296b" stroke-width="1.5"/>
+ <g style="transform:rotate(${a.toFixed(1)}deg);transform-origin:${fx}px 120px;transition:transform .5s ease"><rect x="40" y="108" width="320" height="12" rx="5" fill="#2c52b8"/>
+ <rect x="44" y="64" width="50" height="44" rx="6" fill="#8b94a8" stroke="#5b6482" stroke-width="2"/><text x="69" y="92" text-anchor="middle" font-size="12" fill="#fff">٦٠ كجم</text>
+ <line x1="346" y1="60" x2="346" y2="100" stroke="#0f7a55" stroke-width="3"/><polygon points="346,106 339,92 353,92" fill="#0f7a55"/><text x="346" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#0f7a55">٢٠ كجم</text></g>
+ <text x="${fx}" y="198" text-anchor="middle" font-size="12" fill="${MU}">نقطة الارتكاز</text>`;
+ const l=Math.round(60*f*10)/10,r=Math.round(20*(1-f)*10)/10;
+ $("#lvt").textContent=bal?"✅ متوازنة! عزم الحمل = عزم القوة (الارتكاز عند ربع الطول من جهة الحمل)":(a<0?"الحمل أثقل عزمًا فتميل جهته":"القوة أكبر عزمًا فتميل جهتها")+" — عزم الحمل ٦٠×"+(f*10).toFixed(1)+" مقابل ٢٠×"+((1-f)*10).toFixed(1)}
+function initLab(){L={m:"mesh",n:3};paused=false;th=0;buildLab();
+ $("#lc").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.m){L.m=b.dataset.m;buildLab()}
+  else if(b.dataset.a==="+"&&L.n<5){L.n++;buildLab()}else if(b.dataset.a==="-"&&L.n>2){L.n--;buildLab()}else if(b.dataset.a==="p")paused=!paused};
+ last=performance.now();raf=requestAnimationFrame(frame)}
+
+load();home();
+</script>
+</body>
+</html>
